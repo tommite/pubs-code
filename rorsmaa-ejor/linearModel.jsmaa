@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SMAA-2-model name="SMAA-2 Model" modelVersion="2">
+	<alternatives>
+		<alternative id="0" name="GER"/>
+		<alternative id="1" name="UK"/>
+		<alternative id="2" name="SPA"/>
+		<alternative id="3" name="SWE"/>
+		<alternative id="4" name="NET"/>
+		<alternative id="5" name="ITA"/>
+		<alternative id="6" name="FIN"/>
+		<alternative id="7" name="BEL"/>
+		<alternative id="8" name="AUT"/>
+		<alternative id="9" name="DEN"/>
+		<alternative id="10" name="FRA"/>
+		<alternative id="11" name="CZE"/>
+		<alternative id="12" name="POR"/>
+		<alternative id="13" name="SLO"/>
+		<alternative id="14" name="IRE"/>
+		<alternative id="15" name="HUN"/>
+		<alternative id="16" name="EST"/>
+		<alternative id="17" name="GRE"/>
+		<alternative id="18" name="POL"/>
+		<alternative id="19" name="SVK"/>
+	</alternatives>
+	<criteria>
+		<criterion class="cardinalCriterion" id="20" name="System">
+			<ascending value="true"/>
+		</criterion>
+		<criterion class="cardinalCriterion" id="21" name="Access">
+			<ascending value="true"/>
+		</criterion>
+		<criterion class="cardinalCriterion" id="22" name="Flag">
+			<ascending value="true"/>
+		</criterion>
+		<criterion class="cardinalCriterion" id="23" name="Economy">
+			<ascending value="true"/>
+		</criterion>
+	</criteria>
+	<measurements>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="82.0"/>
+			<alternative ref="0"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="74.0"/>
+			<alternative ref="1"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="59.0"/>
+			<alternative ref="2"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="47.0"/>
+			<alternative ref="3"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="50.0"/>
+			<alternative ref="4"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="51.0"/>
+			<alternative ref="5"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="42.0"/>
+			<alternative ref="6"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="44.0"/>
+			<alternative ref="7"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="42.0"/>
+			<alternative ref="8"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="42.0"/>
+			<alternative ref="9"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="45.0"/>
+			<alternative ref="10"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="41.0"/>
+			<alternative ref="11"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="41.0"/>
+			<alternative ref="12"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="38.0"/>
+			<alternative ref="13"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="40.0"/>
+			<alternative ref="14"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="39.0"/>
+			<alternative ref="15"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="38.0"/>
+			<alternative ref="16"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="39.0"/>
+			<alternative ref="17"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="39.0"/>
+			<alternative ref="18"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="20"/>
+			<value class="exact" value="37.0"/>
+			<alternative ref="19"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="94.0"/>
+			<alternative ref="0"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="91.0"/>
+			<alternative ref="1"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="73.0"/>
+			<alternative ref="2"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="77.0"/>
+			<alternative ref="3"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="73.0"/>
+			<alternative ref="4"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="50.0"/>
+			<alternative ref="5"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="59.0"/>
+			<alternative ref="6"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="57.0"/>
+			<alternative ref="7"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="53.0"/>
+			<alternative ref="8"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="61.0"/>
+			<alternative ref="9"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="37.0"/>
+			<alternative ref="10"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="43.0"/>
+			<alternative ref="11"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="41.0"/>
+			<alternative ref="12"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="37.0"/>
+			<alternative ref="13"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="40.0"/>
+			<alternative ref="14"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="34.0"/>
+			<alternative ref="15"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="36.0"/>
+			<alternative ref="16"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="28.0"/>
+			<alternative ref="17"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="26.0"/>
+			<alternative ref="18"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="21"/>
+			<value class="exact" value="21.0"/>
+			<alternative ref="19"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="80.0"/>
+			<alternative ref="0"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="96.0"/>
+			<alternative ref="1"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="72.0"/>
+			<alternative ref="2"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="90.0"/>
+			<alternative ref="3"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="88.0"/>
+			<alternative ref="4"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="84.0"/>
+			<alternative ref="5"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="88.0"/>
+			<alternative ref="6"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="84.0"/>
+			<alternative ref="7"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="88.0"/>
+			<alternative ref="8"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="68.0"/>
+			<alternative ref="9"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="80.0"/>
+			<alternative ref="10"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="80.0"/>
+			<alternative ref="11"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="60.0"/>
+			<alternative ref="12"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="72.0"/>
+			<alternative ref="13"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="60.0"/>
+			<alternative ref="14"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="48.0"/>
+			<alternative ref="15"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="44.0"/>
+			<alternative ref="16"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="40.0"/>
+			<alternative ref="17"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="36.0"/>
+			<alternative ref="18"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="22"/>
+			<value class="exact" value="8.0"/>
+			<alternative ref="19"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="91.0"/>
+			<alternative ref="0"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="82.0"/>
+			<alternative ref="1"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="67.0"/>
+			<alternative ref="2"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="46.0"/>
+			<alternative ref="3"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="47.0"/>
+			<alternative ref="4"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="55.0"/>
+			<alternative ref="5"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="39.0"/>
+			<alternative ref="6"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="41.0"/>
+			<alternative ref="7"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="38.0"/>
+			<alternative ref="8"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="39.0"/>
+			<alternative ref="9"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="44.0"/>
+			<alternative ref="10"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="40.0"/>
+			<alternative ref="11"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="40.0"/>
+			<alternative ref="12"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="34.0"/>
+			<alternative ref="13"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="34.0"/>
+			<alternative ref="14"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="38.0"/>
+			<alternative ref="15"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="34.0"/>
+			<alternative ref="16"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="34.0"/>
+			<alternative ref="17"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="37.0"/>
+			<alternative ref="18"/>
+		</measurement>
+		<measurement>
+			<criterion class="cardinalCriterion" ref="23"/>
+			<value class="exact" value="37.0"/>
+			<alternative ref="19"/>
+		</measurement>
+	</measurements>
+</SMAA-2-model>
