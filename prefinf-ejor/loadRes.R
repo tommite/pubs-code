@@ -17,7 +17,7 @@ plotres <- function(nalts) {
   x = res[,'npref']
   y1 = res[,'dom']
   y2 = res[,'lemma1']
-  plot(x, y1, type='p', pch=3, col='black',
+  plot(x, y1, type='p', pch=1, col='black',
   #ylab='Number of inferences', 
   #xlab='Number of preference statements', 
   xlab='',
@@ -25,7 +25,7 @@ plotres <- function(nalts) {
   ylab='',
   #main=paste('Test results: ', nalts, 'alternatives and 5 criteria'), 
   ylim=c(min(y1, y2), max(y1, y2)))
-  points(x, y2, pch=4, col='black')
+  points(x, y2, pch=2, col='black')
 #  legend('topright',
 #         c('with transitivity', 'inferred negative through the exclusion lemma'),
 #         col=c('black', 'black'),

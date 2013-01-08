@@ -169,33 +169,13 @@ fastror <- function(performances, preferences) {
   for (i in 1:nalts) {
     nec[i,i] <- 1
   }
-
-  for (i in 1:nalts) {
-    for (j in 1:nalts) {
-      if (i != j) {
-        if (all(performances[i,] > performances[j,])) {
-          nec[i,j] <- 2
-        }
-      }
-    }
-  }
-
   # Set the preferences in there
   for (i in 1:nrow(preferences)) {
     aind <- preferences[i,1]
     bind <- preferences[i,2]
     nec[aind, bind] <- 1
+    nec <- addTransitiveStatements(nec, aind, bind)
   }
-
-  # add transitive statements
-  for (i in 1:nalts) {
-    for (j in 1:nalts) {
-      if (i != j && nec[i,j] > 0) {
-        nec <- addTransitiveStatements(nec, i, j)
-      }
-    }
-  }
-
   nec <- checkLemma1(nec, performances, preferences)
   ssinf <- singleStatementInference(nec, performances, preferences)
 
@@ -204,25 +184,12 @@ fastror <- function(performances, preferences) {
 
 performTest <- function(nalts, ncrit, npref) {
   cat ("Test:", nalts, "alts,", ncrit, "crits,", npref, "preference statements\n")
+  performances <- t(replicate(nalts, randomPointFromHypersphere(ncrit)))
 
-  ok <- FALSE
-  while (!ok) {
-    ok <- TRUE
-    performances <- t(replicate(nalts, rnorm(ncrit)))
-
-    allPrefs <- t(combn(nalts, 2))
-    stopifnot(nrow(allPrefs) >= npref) # sanity check
-    prefInds <- sample(seq(1:nrow(allPrefs)), npref)
-
-    preferences <- allPrefs[prefInds,]
-
-    for (i in 1:nrow(preferences)) {
-      if(all(performances[preferences[i,2]] > performances[preferences[i,1]])) {
-        ok <- FALSE
-        break
-      }
-    }
-  }
+  allPrefs <- t(combn(nalts, 2))
+  stopifnot(nrow(allPrefs) >= npref) # sanity check
+  prefInds <- sample(seq(1:nrow(allPrefs)), npref)
+  preferences <- allPrefs[prefInds,]
 
   cat ("Performances:\n")
   print(performances)
@@ -234,21 +201,4 @@ performTest <- function(nalts, ncrit, npref) {
   utares <- utagms(performances, preferences, necessary=TRUE, strongPrefs=FALSE)
 
   return(list(fast=fastres$nec, uta=utares, restarts=fastres$restarts, perf=performances, pref=preferences))
-}
-
-fullTest <- function(nalts, ncrit, npref) {
-  res <- performTest(nalts, ncrit, npref)
-  diff <- res$uta - (res$fast > 0)
-  return(list(res=res, diff=diff))
-}
-
-findDiff <- function(nalts, ncrit, npref) {
-  seed <- 10
-  while(TRUE) {
-    print(seed)
-    set.seed(seed)
-    r <- fullTest(nalts, ncrit, npref)
-    stopifnot(sum(r$diff > 0) == 0)
-    seed <- seed + 1    
-  }
 }
