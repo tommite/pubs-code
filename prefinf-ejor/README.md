@@ -1,5 +1,5 @@
 These are the tests for  
-R. Split, T. Tervonen: On preference inference with additive multi-attribute value models  
+R. Split, T. Tervonen: Preference inference with general additive multi-attribute value models and holistic pair-wise preference statements
 
 System requirements:
 - Python (2.6+)
