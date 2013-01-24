@@ -17,11 +17,11 @@ rownames(profs) <- c("b1", "b2")
 assignments <- matrix(c(1, 2,
                         3, 1), byrow=TRUE, ncol=2)
 
-phi <- c(buildPhi(q=0, qMult=0.1, p=0, pMult=0.2, ascending=TRUE),
-         buildPhi(q=1, p=2, ascending=FALSE))
+th <- matrix(c(0, 0.1, 0, 0.2, TRUE,
+               1, 0, 2, 0, FALSE), byrow=TRUE, ncol=5)
 
-pos <- etricror(performances=perfs, profiles=profs, assignments, necessary=FALSE, phi)
-nec <- etricror(performances=perfs, profiles=profs, assignments, necessary=TRUE, phi)
+pos <- etricror(perfs, profs, assignments, FALSE, th)
+nec <- etricror(perfs, profs, assignments, TRUE, th)
 print(pos)
 print(nec)
-
+            
