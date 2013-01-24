@@ -62,7 +62,6 @@ etricror <- function(performances, profiles, assignments, necessary=TRUE, phi) {
 }
 
 checkETRICConsistency <- function(allConst, performances, profiles, assignments, phi) {
-
   nAlts <- nrow(performances)
   nCrit <- ncol(performances)
   nAssignments <- nrow(assignments)
@@ -97,7 +96,7 @@ checkETRICRelationNecessary <- function(baseModel, performances, profiles, assig
   nCrit <- ncol(performances)
   nAssignments <- nrow(assignments)
   nCats <- nrow(profiles)
-
+  
   res1 <- TRUE
   res2 <- TRUE
 
@@ -392,7 +391,6 @@ buildLP6Constraint <- function(aInd, h, performances, profiles, assignments) {
   
   return(list(lhs=lhs, dir=dir, rhs=rhs))  
 }
-
 
 buildLP3Constraint <- function(aInd, h, performances, profiles, assignments) {
   nAlts <- nrow(performances)
