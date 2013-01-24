@@ -83,16 +83,16 @@ write.csv(nec3$relation, file="necessary-relation-3.csv")
 write.csv(pos3$relation, file="possible-relation-3.csv")
 
 ## find lambda range
-minl = optimizeLambda(performances, profiles, assigs1, thresholds, FALSE)
-maxl = optimizeLambda(performances, profiles, assigs1, thresholds, TRUE)
+minl = optimizeLambda(perfs, profs, assigs1, thresholds, FALSE)
+maxl = optimizeLambda(perfs, profs, assigs1, thresholds, TRUE)
 message("lambda range ", minl, " ", maxl)
 
-vars = pos1$solution[c(1:5, getLambdaIndex(nrow(performances), ncol(performances),
-  nrow(profiles)))]
-vars = rbind(vars, pos2$solution[c(1:5, getLambdaIndex(nrow(performances), ncol(performances), nrow(profiles)))])
-vars = rbind(vars, pos3$solution[c(1:5, getLambdaIndex(nrow(performances), ncol(performances), nrow(profiles)))])
+vars = pos1$solution[c(1:5, getLambdaIndex(nrow(perfs), ncol(perfs),
+  nrow(profs)))]
+vars = rbind(vars, pos2$solution[c(1:5, getLambdaIndex(nrow(perfs), ncol(perfs), nrow(profs)))])
+vars = rbind(vars, pos3$solution[c(1:5, getLambdaIndex(nrow(perfs), ncol(perfs), nrow(profs)))])
 rownames(vars) <- c("it1", "it2", "it3")
-colnames(vars) <- c(colnames(performances), "lambda")
+colnames(vars) <- c(colnames(perfs), "lambda")
 
 write.csv(vars, file="solution-variables.csv")
 
