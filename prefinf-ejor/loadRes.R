@@ -4,7 +4,7 @@ loadres <- function(nalts) {
   mat <- c()
   for (npref in seq(2, 40, 2)) {
     for (inst in 1:10) {
-      load(paste('res/fastror', nalts, ncrit, npref, inst, sep='-'))
+      load(paste('fastror', nalts, ncrit, npref, inst, sep='-'))
       mat <- rbind(mat, c(nalts, ncrit, npref, row))
     }
   }
