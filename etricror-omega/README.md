@@ -1,5 +1,5 @@
 These are the tests for  
-M. Kadzinski, T. Tervonen: Robust multi-criteria sorting with the outranking preference model and central profiles
+M. Kadzinski, T. Tervonen, J. Figueira: Robust multi-criteria sorting with the outranking preference model and central profiles
 
 System requirements:
 - R
