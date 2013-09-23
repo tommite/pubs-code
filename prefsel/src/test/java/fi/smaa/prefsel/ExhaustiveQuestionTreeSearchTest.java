@@ -31,13 +31,13 @@ public class ExhaustiveQuestionTreeSearchTest {
 	
 	@Test
 	public void testBuildTreeStructureOk() {
-		QuestionNode[] qs = root.getChildren();
+		Node[] qs = root.getChildren();
 		assertEquals(3, qs.length);
 		
 		// first level nodes
-		QuestionNode n1 = qs[0];
-		QuestionNode n2 = qs[1];		
-		QuestionNode n3 = qs[2];
+		QuestionNode n1 = (QuestionNode) qs[0];
+		QuestionNode n2 = (QuestionNode) qs[1];		
+		QuestionNode n3 = (QuestionNode) qs[2];
 		
 		assertEquals(0, n1.getQuestion().getA1());
 		assertEquals(1, n1.getQuestion().getA2());
@@ -68,16 +68,20 @@ public class ExhaustiveQuestionTreeSearchTest {
 		assertEquals(2, n3r.getAnswer());
 		
 		// third level nodes - just test the first few, the rest should work out as it's done recursively
-		QuestionNode[] n1lchildren = n1l.getChildren();
+		Node[] n1lchildren = n1l.getChildren();
 		assertEquals(2, n1lchildren.length);
-		assertEquals(new Question(0, 2), n1lchildren[0].getQuestion());
-		assertEquals(new Question(1, 2), n1lchildren[1].getQuestion());
+		assertEquals(new Question(0, 2), ((QuestionNode) n1lchildren[0]).getQuestion());
+		assertEquals(new Question(1, 2), ((QuestionNode) n1lchildren[1]).getQuestion());
 
-		QuestionNode[] n1rchildren = n1r.getChildren();
+		Node[] n1rchildren = n1r.getChildren();
 		assertEquals(2, n1rchildren.length);
-		assertEquals(new Question(0, 2), n1rchildren[0].getQuestion());
-		assertEquals(new Question(1, 2), n1rchildren[1].getQuestion());
-
-
+		assertEquals(new Question(0, 2), ((QuestionNode) n1rchildren[0]).getQuestion());
+		assertEquals(new Question(1, 2), ((QuestionNode) n1rchildren[1]).getQuestion());
+	}
+	
+	@Test
+	public void testDominanceCuts() {
+		AnswerNode n = (AnswerNode) root.getChildren()[0].getChildren()[0].getChildren()[0].getChildren()[1];
+		assertEquals(0, n.getChildren().length);
 	}
 }

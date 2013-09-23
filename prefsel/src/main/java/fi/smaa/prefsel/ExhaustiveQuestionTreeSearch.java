@@ -15,10 +15,10 @@ import cern.colt.matrix.DoubleMatrix2D;
 public class ExhaustiveQuestionTreeSearch {
 	
 	public static AnswerNode buildTree(DoubleMatrix2D impactMatrix, PreferenceModel prefModel) {
-		return buildRootNode(impactMatrix);
+		return buildRootNode(impactMatrix, prefModel);
 	}
 
-	private static AnswerNode buildRootNode(DoubleMatrix2D impactMatrix) {
+	private static AnswerNode buildRootNode(DoubleMatrix2D impactMatrix, PreferenceModel prefModel) {
 
 		// initialize the combinatorial generation
 		int nrAlts = impactMatrix.rows();
@@ -31,10 +31,10 @@ public class ExhaustiveQuestionTreeSearch {
 		ICombinatoricsVector<Integer> vec = Factory.createVector(intVec);
 		Generator<Integer> gen = Factory.createSimpleCombinationGenerator(vec, 2);
 				
-		AnswerNode root = new AnswerNode(buildQuestions(gen));
+		AnswerNode root = new AnswerNode(buildQuestions(gen), nrAlts);
 		
-		for (QuestionNode n : root.getChildren()) {
-			expandNode(n);
+		for (Node n : root.getChildren()) {
+			expandNode((QuestionNode) n);
 		}
 		
 		return root;
@@ -44,8 +44,11 @@ public class ExhaustiveQuestionTreeSearch {
 		n.expandLeft();
 		n.expandRight();
 		
-		for (QuestionNode cn : n.getLeftChild().getChildren()) {
-			expandNode(cn);
+		for (Node cn : n.getLeftChild().getChildren()) {
+			expandNode((QuestionNode) cn);
+		}
+		for (Node cn : n.getRightChild().getChildren()) {
+			expandNode((QuestionNode) cn);
 		}
 	}
 

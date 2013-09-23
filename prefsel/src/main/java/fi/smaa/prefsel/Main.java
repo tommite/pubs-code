@@ -12,8 +12,7 @@ public class Main {
 				{3, 1, 1}}
 		);
 		
-		ExhaustiveQuestionTreeSearch.buildTree(imp, null);
-		
+		AnswerNode tree = ExhaustiveQuestionTreeSearch.buildTree(imp, null);
+		System.out.println(TreeTraverser.toDOT(tree));		
 	}
-
 }	

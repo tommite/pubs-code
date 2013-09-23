@@ -25,6 +25,6 @@ public class TreeTraverserTest {
 
 	@Test
 	public void testNrNodes() {
-		assertEquals(58, TreeTraverser.nrNodes(root));
+		assertEquals(13 * 6 + 4, TreeTraverser.nrNodes(root)); // should be this amount due to transitivity..
 	}
 }

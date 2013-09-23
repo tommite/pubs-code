@@ -27,7 +27,7 @@ public class Question {
 		return false;
 	}
 
-	public String dotString() {
-		return Integer.toString(a1) + "or" + a2;
+	public String dotString(Sequencer seq) {
+		return "q" + Integer.toString(a1) + "or" + a2 + "seq" + seq.next();
 	}
 }

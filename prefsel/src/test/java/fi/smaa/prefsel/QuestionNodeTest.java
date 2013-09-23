@@ -18,7 +18,7 @@ public class QuestionNodeTest {
 				new Question(2, 3),
 				new Question(3, 4)
 		};
-		node = new QuestionNode(q, remQs);
+		node = new QuestionNode(q, remQs, new TransitiveRelation(5));
 	}
 	
 	@Test
