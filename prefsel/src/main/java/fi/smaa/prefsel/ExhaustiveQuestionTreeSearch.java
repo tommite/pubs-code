@@ -1,10 +1,9 @@
 package fi.smaa.prefsel;
 
+import org.apache.commons.math3.linear.RealMatrix;
 import org.paukov.combinatorics.Factory;
 import org.paukov.combinatorics.Generator;
 import org.paukov.combinatorics.ICombinatoricsVector;
-
-import cern.colt.matrix.DoubleMatrix2D;
 
 /**
  * Class that implements the exhaustive search for the question minimizing problem
@@ -14,14 +13,14 @@ import cern.colt.matrix.DoubleMatrix2D;
  */
 public class ExhaustiveQuestionTreeSearch {
 	
-	public static AnswerNode buildTree(DoubleMatrix2D impactMatrix, PreferenceModel prefModel) {
+	public static AnswerNode buildTree(RealMatrix impactMatrix, PreferenceModel prefModel) {
 		return buildRootNode(impactMatrix, prefModel);
 	}
 
-	private static AnswerNode buildRootNode(DoubleMatrix2D impactMatrix, PreferenceModel prefModel) {
+	private static AnswerNode buildRootNode(RealMatrix impactMatrix, PreferenceModel prefModel) {
 
 		// initialize the combinatorial generation
-		int nrAlts = impactMatrix.rows();
+		int nrAlts = impactMatrix.getRowDimension();
 		
 		Integer[] intVec = new Integer[nrAlts];
 		for (int i=0;i<nrAlts;i++) {
@@ -31,7 +30,7 @@ public class ExhaustiveQuestionTreeSearch {
 		ICombinatoricsVector<Integer> vec = Factory.createVector(intVec);
 		Generator<Integer> gen = Factory.createSimpleCombinationGenerator(vec, 2);
 				
-		AnswerNode root = new AnswerNode(buildQuestions(gen), nrAlts);
+		AnswerNode root = new AnswerNode(buildQuestions(gen), nrAlts, prefModel, impactMatrix);
 		
 		for (Node n : root.getChildren()) {
 			expandNode((QuestionNode) n);

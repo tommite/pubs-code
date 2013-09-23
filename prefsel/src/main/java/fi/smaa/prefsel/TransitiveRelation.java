@@ -1,7 +1,10 @@
 package fi.smaa.prefsel;
 
+import java.util.Iterator;
+
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.util.Pair;
 
 public class TransitiveRelation {
 
@@ -48,5 +51,49 @@ public class TransitiveRelation {
 		TransitiveRelation t = new TransitiveRelation(matrix.getColumnDimension());
 		t.matrix = matrix.copy();
 		return t;
+	}
+	
+	public Iterable<Pair<Integer, Integer>> iterator() {
+		return new Iterable<Pair<Integer, Integer>>() {
+			public Iterator<Pair<Integer, Integer>> iterator() {
+				return new PreferenceIterator();
+			}
+		};
+	}
+	
+	private class PreferenceIterator implements Iterator<Pair<Integer, Integer>> {
+		
+		private int i=-1;
+		private int j=0;
+		
+		public PreferenceIterator() {
+			findNext();
+		}
+		
+		private void findNext() {
+			i++;
+			for (;i<matrix.getRowDimension();i++) {
+				for (;j<matrix.getColumnDimension();j++) {
+					if (getRelation(i, j)) {
+						return;
+					}
+				}
+				j = 0;
+			}
+		}
+
+		public boolean hasNext() {
+			return i < matrix.getRowDimension();
+		}
+
+		public Pair<Integer, Integer> next() {
+			Pair<Integer, Integer> ret = new Pair<Integer, Integer>(i, j);
+			findNext();
+			return ret;
+		}
+
+		public void remove() {
+			throw new IllegalStateException("remove() not supported");
+		}
 	}
 }

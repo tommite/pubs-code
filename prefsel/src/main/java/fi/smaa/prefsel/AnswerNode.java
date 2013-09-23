@@ -3,24 +3,44 @@ package fi.smaa.prefsel;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.apache.commons.math3.linear.RealMatrix;
+
 public class AnswerNode implements Node {
 
 	private int answer;
 	private QuestionNode[] children;
 	private TransitiveRelation currentPreferences;
+	private PreferenceModel prefModel;
+	private RealMatrix impacts;
 
 	public static final int NO_ANSWER = -1;
 
-	public AnswerNode(Question[] remainingQuestions, int answer, TransitiveRelation prefs) {
+	public AnswerNode(Question[] remainingQuestions, int answer, TransitiveRelation prefs, PreferenceModel prefModel, RealMatrix impacts) {
+		this.prefModel = prefModel;
 		this.answer = answer;
 		this.currentPreferences = prefs;
+		this.impacts = impacts;
 		createChildren(remainingQuestions);
 	}
+	
+	/**
+	 * Build a root node (no answer)
+	 * 
+	 * @param questions
+	 */
+	public AnswerNode(Question[] questions, int nrAlts, PreferenceModel prefModel, RealMatrix impacts) {
+		answer = NO_ANSWER;
+		currentPreferences = new TransitiveRelation(nrAlts);
+		this.impacts = impacts;
+		this.prefModel = prefModel;
+		createChildren(questions);
+	}
+
 
 	private void createChildren(Question[] remainingQuestions) {
 		children = new QuestionNode[remainingQuestions.length];
 		for (int i=0;i<remainingQuestions.length;i++) {
-			children[i] = new QuestionNode(remainingQuestions[i], cloneArrayWithoutOne(remainingQuestions, i), currentPreferences);
+			children[i] = new QuestionNode(remainingQuestions[i], cloneArrayWithoutOne(remainingQuestions, i), currentPreferences, prefModel, impacts);
 		}		
 	}
 
@@ -29,17 +49,6 @@ public class AnswerNode implements Node {
 		Collections.addAll(qs, remainingQuestions);
 		qs.remove(i);
 		return qs.toArray(new Question[0]);
-	}
-
-	/**
-	 * Build a root node (no answer)
-	 * 
-	 * @param questions
-	 */
-	public AnswerNode(Question[] questions, int nrAlts) {
-		answer = NO_ANSWER;
-		currentPreferences = new TransitiveRelation(nrAlts);
-		createChildren(questions);
 	}
 
 	public int getAnswer() {

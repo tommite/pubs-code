@@ -1,12 +1,11 @@
 package fi.smaa.prefsel;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
 import org.junit.Before;
 import org.junit.Test;
-
-import cern.colt.matrix.DoubleFactory2D;
-import cern.colt.matrix.DoubleMatrix2D;
 
 public class TreeTraverserTest {
 
@@ -14,7 +13,7 @@ public class TreeTraverserTest {
 
 	@Before
 	public void setUp() {
-		DoubleMatrix2D imp = DoubleFactory2D.dense.make(new double[][]{
+		RealMatrix imp = new Array2DRowRealMatrix(new double[][]{
 				{1, 2, 3},
 				{2, 1, 2},
 				{3, 1, 1}}

@@ -1,12 +1,12 @@
 package fi.smaa.prefsel;
 
-import cern.colt.matrix.DoubleFactory2D;
-import cern.colt.matrix.DoubleMatrix2D;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
 
 public class Main {
 
 	public static void main(String[] args) {
-		DoubleMatrix2D imp = DoubleFactory2D.dense.make(new double[][]{
+		RealMatrix imp = new Array2DRowRealMatrix(new double[][]{
 				{1, 2, 3},
 				{2, 1, 2},
 				{3, 1, 1}}
