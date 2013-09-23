@@ -1,8 +1,0 @@
-This directory contains code for tests in
-
-M. Kadzinski and T. Tervonen: Stochastic Ordinal Regression for Multiple Criteria Ranking Problems
-
-In addition, there is included an example of how to do Gibbs sampling of the value functions (mcmcTests.R)
-
-September 2012
-Tommi Tervonen
