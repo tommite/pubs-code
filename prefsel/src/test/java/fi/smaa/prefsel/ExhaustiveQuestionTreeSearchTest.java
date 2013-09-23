@@ -1,6 +1,5 @@
 package fi.smaa.prefsel;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
@@ -31,6 +30,7 @@ public class ExhaustiveQuestionTreeSearchTest {
 	
 	@Test
 	public void testTraversalWithLinearVFCut() {
+		System.out.println("\n\n\n\n\n---");
 		RealMatrix im = new Array2DRowRealMatrix(new double[][]{
 				{1.0, 0.0},
 				{0.0, 1.0},
@@ -38,9 +38,10 @@ public class ExhaustiveQuestionTreeSearchTest {
 		});
 		TransitiveRelation prefs = new TransitiveRelation(3);
 		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
-		prefs.addRelation(0, 1);
 		root = ExhaustiveQuestionTreeSearch.buildTree(im, p);
-		fail(); // TODO: implement
+		Node[] children = root.getChildren();
+		assertEquals(0, children[0].getChildren()[0].getChildren().length);
+		assertEquals(2, children[1].getChildren()[0].getChildren().length);
 	}
 	
 	@Test

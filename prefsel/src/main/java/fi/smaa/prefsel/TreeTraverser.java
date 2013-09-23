@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class TreeTraverser<C> {
+public class TreeTraverser {
 	
 	public static int nrNodes(Node root) {
 		int count = 1;

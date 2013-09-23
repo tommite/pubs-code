@@ -11,4 +11,6 @@ public interface PreferenceModel {
 		EQUAL,
 		INCOMPARABLE
 	}
+
+	public PreferenceModel copyWithRelation(TransitiveRelation newPrefs);
 }

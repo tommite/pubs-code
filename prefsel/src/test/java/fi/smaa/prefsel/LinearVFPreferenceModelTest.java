@@ -47,5 +47,18 @@ public class LinearVFPreferenceModelTest {
 		prefs.addRelation(1, 0);
 		assertEquals(PreferenceModel.PreferenceRelation.SECOND_PREFERRED, p.compare(im.getRow(0), im.getRow(2)));
 	}
+	
+	@Test
+	public void testBugWithInequalityCompare() {
+		RealMatrix im = new Array2DRowRealMatrix(new double[][]{
+				{1.0, 0.0},
+				{0.0, 1.0},
+				{0.2, 0.2}
+		});
+		TransitiveRelation prefs = new TransitiveRelation(3);
+		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
+		prefs.addRelation(1, 2);
+		assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, p.compare(im.getRow(0), im.getRow(1)));
+	}
 
 }

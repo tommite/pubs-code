@@ -12,4 +12,8 @@ public class NullPreferenceModel implements PreferenceModel {
 		return PreferenceModel.PreferenceRelation.INCOMPARABLE;
 	}
 
+	public PreferenceModel copyWithRelation(TransitiveRelation newPrefs) {
+		return new NullPreferenceModel();
+	}
+
 }

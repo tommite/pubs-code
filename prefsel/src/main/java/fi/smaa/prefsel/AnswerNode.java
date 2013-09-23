@@ -1,6 +1,7 @@
 package fi.smaa.prefsel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.apache.commons.math3.linear.RealMatrix;
@@ -39,6 +40,7 @@ public class AnswerNode implements Node {
 
 	private void createChildren(Question[] remainingQuestions) {
 		children = new QuestionNode[remainingQuestions.length];
+		System.out.println("creating children for " + this + " with remaining questions " + Arrays.toString(remainingQuestions));
 		for (int i=0;i<remainingQuestions.length;i++) {
 			children[i] = new QuestionNode(remainingQuestions[i], cloneArrayWithoutOne(remainingQuestions, i), currentPreferences, prefModel, impacts);
 		}		

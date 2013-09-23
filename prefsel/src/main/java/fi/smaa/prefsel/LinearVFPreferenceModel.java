@@ -46,4 +46,8 @@ public class LinearVFPreferenceModel implements PreferenceModel {
 		return false;
 	}
 
+	public PreferenceModel copyWithRelation(TransitiveRelation newPrefs) {
+		return new LinearVFPreferenceModel(im, newPrefs);
+	}
+
 }

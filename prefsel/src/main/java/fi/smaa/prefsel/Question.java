@@ -30,4 +30,9 @@ public class Question {
 	public String dotString(Sequencer seq) {
 		return "q" + Integer.toString(a1) + "or" + a2 + "seq" + seq.next();
 	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(a1) + "?" + a2;
+	}
 }

@@ -96,4 +96,9 @@ public class TransitiveRelation {
 			throw new IllegalStateException("remove() not supported");
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return this.matrix.toString();
+	}
 }
