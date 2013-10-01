@@ -1,6 +1,10 @@
 package fi.smaa.prefsel;
 
+import java.util.ArrayList;
+
 import org.apache.commons.math3.linear.RealMatrix;
+
+import fi.smaa.prefsel.PreferenceModel.PreferenceRelation;
 
 /**
  * Class that implements the exhaustive search for the question minimizing problem
@@ -30,28 +34,54 @@ public class ExhaustiveQuestionTreeSearch {
 	private static void expandAllAnswers(QuestionNode n, RealMatrix impactMatrix, PreferenceModel prefModel) {
 		int a1 = n.getQuestion().getA1();
 		int a2 = n.getQuestion().getA2();
+		
+		if (n.getRelation().getRelation(a1, a2) || n.getRelation().getRelation(a2, a1)) {
+			throw new IllegalStateException("Question for a relation that is already set");
+		}
 	
 		TransitiveRelation newRelationLeft = constructRelation(a1, a2, n.getRelation(), impactMatrix, prefModel);
+		TransitiveRelation newRelationRight = constructRelation(a2, a1, n.getRelation(), impactMatrix, prefModel);
+		
+		Question[] qsLeft = filterQuestions(n.getRemainingQuestions(), newRelationLeft);
+		Question[] qsRight = filterQuestions(n.getRemainingQuestions(), newRelationRight);
 	
+		n.expandLeft(qsLeft, newRelationLeft);
+		n.expandRight(qsRight, newRelationRight);
+	}
+
+	private static Question[] filterQuestions(Question[] qs, TransitiveRelation rel) {
+		ArrayList<Question> ql = new ArrayList<Question>();
+		for (Question q : qs) {
+			if (!rel.getRelation(q.getA1(), q.getA2()) && !rel.getRelation(q.getA2(), q.getA1())) {
+				ql.add(q);
+			}
+		}
+		return ql.toArray(new Question[0]);
 	}
 
 	/**
-	 * Construct a new preference relation by adding a new preference statement.
+	 * Construct a new preference relation by adding a new preference statement a1 > a2.
 	 * 
-	 * @param a1
-	 * @param a2
-	 * @param relation
-	 * @param impactMatrix
-	 * @param prefModel
-	 * @return
+	 * @param a1 the alternative being preferred
+	 * @param a2 the alternative being not preferred
+	 * @param relation the relation to use as base
+	 * @param impactMatrix impact matrix of alternative evaluations
+	 * @param prefModel the applied preference model
+	 * @return A new preference relation including (a1, a2) and possible other pairs inferred through the preference model 
 	 */
-	private static TransitiveRelation constructRelation(int a1, int a2, 
-			TransitiveRelation relation, RealMatrix impactMatrix, PreferenceModel prefModel) {
+	private static TransitiveRelation constructRelation(int a1, int a2, TransitiveRelation relation, RealMatrix impactMatrix, PreferenceModel prefModel) {
 		TransitiveRelation newRel = relation.deepCopy();
 		
-		relation.addRelation(a1, a2);
+		newRel.addRelation(a1, a2);
 		
-		// TODO: add filtering of values with the preference model
+		for (Pair p : newRel.negativeIterator()) {
+			PreferenceRelation val = prefModel.compare(newRel, impactMatrix, impactMatrix.getRow(p.getFirst()), impactMatrix.getRow(p.getSecond()));
+			if (val == PreferenceRelation.FIRST_PREFERRED) {
+				newRel.addRelation(p.getFirst(), p.getSecond());
+			} else if (val == PreferenceRelation.SECOND_PREFERRED) {
+				newRel.addRelation(p.getSecond(), p.getFirst());
+			}
+		}
 		
 		return newRel;
 	}

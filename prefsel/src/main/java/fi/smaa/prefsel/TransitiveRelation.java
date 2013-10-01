@@ -55,7 +55,15 @@ public class TransitiveRelation {
 	public Iterable<Pair> iterator() {
 		return new Iterable<Pair>() {
 			public Iterator<Pair> iterator() {
-				return new PreferenceIterator();
+				return new PreferenceIterator(true);
+			}
+		};
+	}
+	
+	public Iterable<Pair> negativeIterator() {
+		return new Iterable<Pair>() {
+			public Iterator<Pair> iterator() {
+				return new PreferenceIterator(false);
 			}
 		};
 	}
@@ -64,8 +72,10 @@ public class TransitiveRelation {
 		
 		private int i=-1;
 		private int j=0;
+		private boolean ones;
 		
-		public PreferenceIterator() {
+		public PreferenceIterator(boolean ones) {
+			this.ones = ones;
 			findNext();
 		}
 		
@@ -73,7 +83,7 @@ public class TransitiveRelation {
 			i++;
 			for (;i<matrix.getRowDimension();i++) {
 				for (;j<matrix.getColumnDimension();j++) {
-					if (getRelation(i, j)) {
+					if (getRelation(i, j) == ones) {
 						return;
 					}
 				}

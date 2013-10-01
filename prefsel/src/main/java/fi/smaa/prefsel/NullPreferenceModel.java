@@ -1,5 +1,7 @@
 package fi.smaa.prefsel;
 
+import org.apache.commons.math3.linear.RealMatrix;
+
 /**
  * Preference model that cannot establish any orders (everything is incomparable).
  * 
@@ -8,12 +10,8 @@ package fi.smaa.prefsel;
  */
 public class NullPreferenceModel implements PreferenceModel {
 
-	public PreferenceRelation compare(double[] a1, double[] a2) {
+	public PreferenceRelation compare(TransitiveRelation rel, RealMatrix impactMatrix, double[] a1, double[] a2) {
 		return PreferenceModel.PreferenceRelation.INCOMPARABLE;
-	}
-
-	public PreferenceModel copyWithRelation(TransitiveRelation newPrefs) {
-		return new NullPreferenceModel();
 	}
 
 }

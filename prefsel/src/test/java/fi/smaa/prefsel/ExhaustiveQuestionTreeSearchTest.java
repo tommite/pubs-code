@@ -36,8 +36,7 @@ public class ExhaustiveQuestionTreeSearchTest {
 				{0.0, 1.0},
 				{0.2, 0.2}
 		});
-		TransitiveRelation prefs = new TransitiveRelation(3);
-		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
+		LinearVFPreferenceModel p = new LinearVFPreferenceModel();
 		root = ExhaustiveQuestionTreeSearch.buildTree(im, p);
 		QuestionNode[] children = root.getChildren();
 		assertEquals(0, children[0].getChildren()[0].getChildren().length);

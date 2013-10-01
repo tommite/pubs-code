@@ -7,7 +7,8 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.junit.Test;
 
 public class LinearVFPreferenceModelTest {
-
+	
+	private LinearVFPreferenceModel p = new LinearVFPreferenceModel();
 	
 	@Test
 	public void testPrerenceModelIncomparable() {
@@ -17,8 +18,7 @@ public class LinearVFPreferenceModelTest {
 				{0.2, 0.2}
 		});
 		TransitiveRelation prefs = new TransitiveRelation(3);
-		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
-		assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, p.compare(im.getRow(0), im.getRow(2)));		
+		assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, p.compare(prefs, im, im.getRow(0), im.getRow(2)));		
 	}
 
 	@Test
@@ -29,9 +29,8 @@ public class LinearVFPreferenceModelTest {
 				{0.2, 0.2}
 		});
 		TransitiveRelation prefs = new TransitiveRelation(3);
-		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
 		prefs.addRelation(0, 1);
-		assertEquals(PreferenceModel.PreferenceRelation.FIRST_PREFERRED, p.compare(im.getRow(0), im.getRow(2)));
+		assertEquals(PreferenceModel.PreferenceRelation.FIRST_PREFERRED, p.compare(prefs, im, im.getRow(0), im.getRow(2)));
 	}
 	
 	@Test
@@ -42,10 +41,9 @@ public class LinearVFPreferenceModelTest {
 				{0.2, 0.2}
 		});
 		TransitiveRelation prefs = new TransitiveRelation(3);
-		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
 		
 		prefs.addRelation(1, 0);
-		assertEquals(PreferenceModel.PreferenceRelation.SECOND_PREFERRED, p.compare(im.getRow(0), im.getRow(2)));
+		assertEquals(PreferenceModel.PreferenceRelation.SECOND_PREFERRED, p.compare(prefs, im, im.getRow(0), im.getRow(2)));
 	}
 	
 	@Test
@@ -56,9 +54,8 @@ public class LinearVFPreferenceModelTest {
 				{0.2, 0.2}
 		});
 		TransitiveRelation prefs = new TransitiveRelation(3);
-		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
 		prefs.addRelation(1, 2);
-		assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, p.compare(im.getRow(0), im.getRow(1)));
+		assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, p.compare(prefs, im, im.getRow(0), im.getRow(1)));
 	}
 
 }

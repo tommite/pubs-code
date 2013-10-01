@@ -8,7 +8,7 @@ public class NullPreferenceModelTest {
 	@Test
 	public void testCompare() {
 		Assert.assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, 
-				new NullPreferenceModel().compare(new double[]{1.0}, new double[]{1.0}));
+				new NullPreferenceModel().compare(null, null, new double[]{1.0}, new double[]{1.0}));
 		
 	}
 }
