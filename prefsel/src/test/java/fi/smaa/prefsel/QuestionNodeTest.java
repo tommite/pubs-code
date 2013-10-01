@@ -2,7 +2,6 @@ package fi.smaa.prefsel;
 
 import static org.junit.Assert.*;
 
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,14 +18,7 @@ public class QuestionNodeTest {
 				new Question(2, 3),
 				new Question(3, 4)
 		};
-		double[][] vals = new double[][]{
-				{0.0, 1.0, 2.0},
-				{1.0, 0.0, 2.0},
-				{0.0, 3.0, 0.2},
-				{2.0, 4.0, 0.1},
-				{3.0, 1.0, 2.2}
-		};
-		node = new QuestionNode(q, remQs, new TransitiveRelation(5), new NullPreferenceModel(), new Array2DRowRealMatrix(vals));
+		node = new QuestionNode(q, remQs, new TransitiveRelation(4));
 	}
 	
 	@Test
@@ -39,16 +31,23 @@ public class QuestionNodeTest {
 	
 	@Test
 	public void testExpandLeft() {
-		node.expandLeft();
+		node.expandLeft(remQs, new TransitiveRelation(3));
 		AnswerNode ln = node.getLeftChild();
 		assertEquals(1, ln.getAnswer());
 	}
 	
 	@Test
 	public void testExpandRight() {
-		node.expandRight();
+		node.expandRight(remQs, new TransitiveRelation(3));
 		AnswerNode ln = node.getRightChild();
 		assertEquals(2, ln.getAnswer());
 	}
-
+	
+	@Test
+	public void testGetChildren() {
+		AnswerNode[] c = node.getChildren();
+		assertNull(c[0]);
+		assertNull(c[1]);
+		assertEquals(2, c.length);
+	}
 }

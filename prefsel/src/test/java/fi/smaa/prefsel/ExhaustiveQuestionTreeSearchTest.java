@@ -39,14 +39,14 @@ public class ExhaustiveQuestionTreeSearchTest {
 		TransitiveRelation prefs = new TransitiveRelation(3);
 		LinearVFPreferenceModel p = new LinearVFPreferenceModel(im, prefs);
 		root = ExhaustiveQuestionTreeSearch.buildTree(im, p);
-		Node[] children = root.getChildren();
+		QuestionNode[] children = root.getChildren();
 		assertEquals(0, children[0].getChildren()[0].getChildren().length);
 		assertEquals(2, children[1].getChildren()[0].getChildren().length);
 	}
 	
 	@Test
 	public void testBuildTreeStructureOk() {
-		Node[] qs = root.getChildren();
+		QuestionNode[] qs = root.getChildren();
 		assertEquals(3, qs.length);
 		
 		// first level nodes
@@ -83,20 +83,20 @@ public class ExhaustiveQuestionTreeSearchTest {
 		assertEquals(2, n3r.getAnswer());
 		
 		// third level nodes - just test the first few, the rest should work out as it's done recursively
-		Node[] n1lchildren = n1l.getChildren();
+		QuestionNode[] n1lchildren = n1l.getChildren();
 		assertEquals(2, n1lchildren.length);
-		assertEquals(new Question(0, 2), ((QuestionNode) n1lchildren[0]).getQuestion());
-		assertEquals(new Question(1, 2), ((QuestionNode) n1lchildren[1]).getQuestion());
+		assertEquals(new Question(0, 2), n1lchildren[0].getQuestion());
+		assertEquals(new Question(1, 2), n1lchildren[1].getQuestion());
 
-		Node[] n1rchildren = n1r.getChildren();
+		QuestionNode[] n1rchildren = n1r.getChildren();
 		assertEquals(2, n1rchildren.length);
-		assertEquals(new Question(0, 2), ((QuestionNode) n1rchildren[0]).getQuestion());
-		assertEquals(new Question(1, 2), ((QuestionNode) n1rchildren[1]).getQuestion());
+		assertEquals(new Question(0, 2), n1rchildren[0].getQuestion());
+		assertEquals(new Question(1, 2), n1rchildren[1].getQuestion());
 	}
 	
 	@Test
 	public void testDominanceCuts() {
-		AnswerNode n = (AnswerNode) root.getChildren()[0].getChildren()[0].getChildren()[0].getChildren()[1];
+		AnswerNode n = root.getChildren()[0].getChildren()[0].getChildren()[0].getChildren()[1];
 		assertEquals(0, n.getChildren().length);
 	}
 }

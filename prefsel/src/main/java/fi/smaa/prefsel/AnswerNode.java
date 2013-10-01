@@ -1,48 +1,34 @@
 package fi.smaa.prefsel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
-import org.apache.commons.math3.linear.RealMatrix;
-
-public class AnswerNode implements Node {
+public class AnswerNode implements Node<AnswerNode, QuestionNode> {
 
 	private int answer;
 	private QuestionNode[] children;
-	private TransitiveRelation currentPreferences;
-	private PreferenceModel prefModel;
-	private RealMatrix impacts;
 
 	public static final int NO_ANSWER = -1;
 
-	public AnswerNode(Question[] remainingQuestions, int answer, TransitiveRelation prefs, PreferenceModel prefModel, RealMatrix impacts) {
-		this.prefModel = prefModel;
+	public AnswerNode(int answer, Question[] remainingQuestions, TransitiveRelation prefs) {
 		this.answer = answer;
-		this.currentPreferences = prefs;
-		this.impacts = impacts;
-		createChildren(remainingQuestions);
+		createChildren(remainingQuestions, prefs);
 	}
-	
+
 	/**
-	 * Build a root node (no answer)
+	 * Build root node.
 	 * 
-	 * @param questions
+	 * @param remainingQuestions
 	 */
-	public AnswerNode(Question[] questions, int nrAlts, PreferenceModel prefModel, RealMatrix impacts) {
-		answer = NO_ANSWER;
-		currentPreferences = new TransitiveRelation(nrAlts);
-		this.impacts = impacts;
-		this.prefModel = prefModel;
-		createChildren(questions);
+	public AnswerNode(Question[] allQuestions, int nrAlts) {
+		this(NO_ANSWER, allQuestions, new TransitiveRelation(nrAlts));
 	}
 
-
-	private void createChildren(Question[] remainingQuestions) {
+	
+	private void createChildren(Question[] remainingQuestions, TransitiveRelation prefs) {
 		children = new QuestionNode[remainingQuestions.length];
-		System.out.println("creating children for " + this + " with remaining questions " + Arrays.toString(remainingQuestions));
 		for (int i=0;i<remainingQuestions.length;i++) {
-			children[i] = new QuestionNode(remainingQuestions[i], cloneArrayWithoutOne(remainingQuestions, i), currentPreferences, prefModel, impacts);
+			children[i] = new QuestionNode(remainingQuestions[i], cloneArrayWithoutOne(remainingQuestions, i), prefs);
 		}		
 	}
 
@@ -57,12 +43,8 @@ public class AnswerNode implements Node {
 		return answer;
 	}
 
-	public Node[] getChildren() {
-		Node[] ch = new Node[children.length];
-		for (int i=0;i<children.length;i++) {
-			ch[i] = (Node) children[i];
-		}
-		return ch;
+	public QuestionNode[] getChildren() {
+		return children;
 	}
 
 	@Override

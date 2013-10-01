@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.util.Pair;
 
 public class TransitiveRelation {
 
@@ -53,15 +52,15 @@ public class TransitiveRelation {
 		return t;
 	}
 	
-	public Iterable<Pair<Integer, Integer>> iterator() {
-		return new Iterable<Pair<Integer, Integer>>() {
-			public Iterator<Pair<Integer, Integer>> iterator() {
+	public Iterable<Pair> iterator() {
+		return new Iterable<Pair>() {
+			public Iterator<Pair> iterator() {
 				return new PreferenceIterator();
 			}
 		};
 	}
 	
-	private class PreferenceIterator implements Iterator<Pair<Integer, Integer>> {
+	private class PreferenceIterator implements Iterator<Pair> {
 		
 		private int i=-1;
 		private int j=0;
@@ -86,8 +85,8 @@ public class TransitiveRelation {
 			return i < matrix.getRowDimension();
 		}
 
-		public Pair<Integer, Integer> next() {
-			Pair<Integer, Integer> ret = new Pair<Integer, Integer>(i, j);
+		public Pair next() {
+			Pair ret = new Pair(i, j);
 			findNext();
 			return ret;
 		}
@@ -100,5 +99,9 @@ public class TransitiveRelation {
 	@Override
 	public String toString() {
 		return this.matrix.toString();
+	}
+
+	public int getDim() {
+		return matrix.getColumnDimension();
 	}
 }

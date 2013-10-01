@@ -3,7 +3,6 @@ package fi.smaa.prefsel;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
-import org.apache.commons.math3.util.Pair;
 
 public class LinearVFPreferenceModel implements PreferenceModel {
 	
@@ -32,9 +31,9 @@ public class LinearVFPreferenceModel implements PreferenceModel {
 	}
 
 	private boolean checkLinearInequality(RealVector point) {
-		for (Pair<Integer, Integer> p : prefs.iterator()) {
-			int b1 = p.getKey();
-			int b2 = p.getValue();
+		for (Pair p : prefs.iterator()) {
+			int b1 = p.getFirst();
+			int b2 = p.getSecond();
 			RealVector v1 = new ArrayRealVector(im.getRow(b1));
 			RealVector v2 = new ArrayRealVector(im.getRow(b2));
 			RealVector sub = v1.subtract(v2);

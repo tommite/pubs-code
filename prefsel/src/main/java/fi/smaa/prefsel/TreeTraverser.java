@@ -3,7 +3,7 @@ package fi.smaa.prefsel;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@SuppressWarnings("rawtypes")
 public class TreeTraverser {
 	
 	public static int nrNodes(Node root) {

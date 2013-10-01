@@ -1,9 +1,6 @@
 package fi.smaa.prefsel;
 
 import org.apache.commons.math3.linear.RealMatrix;
-import org.paukov.combinatorics.Factory;
-import org.paukov.combinatorics.Generator;
-import org.paukov.combinatorics.ICombinatoricsVector;
 
 /**
  * Class that implements the exhaustive search for the question minimizing problem
@@ -14,56 +11,49 @@ import org.paukov.combinatorics.ICombinatoricsVector;
 public class ExhaustiveQuestionTreeSearch {
 	
 	public static AnswerNode buildTree(RealMatrix impactMatrix, PreferenceModel prefModel) {
-		return buildRootNode(impactMatrix, prefModel);
-	}
-
-	private static AnswerNode buildRootNode(RealMatrix impactMatrix, PreferenceModel prefModel) {
-
-		// initialize the combinatorial generation
 		int nrAlts = impactMatrix.getRowDimension();
-		
-		Integer[] intVec = new Integer[nrAlts];
-		for (int i=0;i<nrAlts;i++) {
-			intVec[i] = i;
-		}
-		
-		ICombinatoricsVector<Integer> vec = Factory.createVector(intVec);
-		Generator<Integer> gen = Factory.createSimpleCombinationGenerator(vec, 2);
-				
-		AnswerNode root = new AnswerNode(buildQuestions(gen), nrAlts, prefModel, impactMatrix);
-		
-		for (Node n : root.getChildren()) {
-			expandNode((QuestionNode) n);
-		}
-		
+		Question[] qs = QuestionGenerator.makeAllQuestions(nrAlts);
+		AnswerNode root = new AnswerNode(qs, nrAlts);
+		expandChildren(root, impactMatrix, prefModel);
 		return root;
 	}
 
-	private static void expandNode(QuestionNode n) {
-		n.expandLeft();
-		n.expandRight();
-		
-		for (Node cn : n.getLeftChild().getChildren()) {
-			expandNode((QuestionNode) cn);
-		}
-		for (Node cn : n.getRightChild().getChildren()) {
-			expandNode((QuestionNode) cn);
+	private static void expandChildren(AnswerNode node, RealMatrix impactMatrix, PreferenceModel prefModel) {
+		for (QuestionNode n : node.getChildren()) {
+			expandAllAnswers(n, impactMatrix, prefModel);
+			for (AnswerNode an : n.getChildren()) {
+				expandChildren(an, impactMatrix, prefModel);
+			}
 		}
 	}
 
-	private static Question[] buildQuestions(Generator<Integer> gen) {
-		int nrObjs = (int) gen.getNumberOfGeneratedObjects();
-		Question[] ret = new Question[nrObjs];
-		int idx = 0;
-		for (ICombinatoricsVector<Integer> vec : gen) {
-			if(vec.getSize() != 2) {
-				throw new IllegalStateException("invalid vec size != 2");
-			}
-			ret[idx] = new Question(vec.getValue(0), vec.getValue(1));
-			
-			idx++;
-		}
-		return ret;
+	private static void expandAllAnswers(QuestionNode n, RealMatrix impactMatrix, PreferenceModel prefModel) {
+		int a1 = n.getQuestion().getA1();
+		int a2 = n.getQuestion().getA2();
+	
+		TransitiveRelation newRelationLeft = constructRelation(a1, a2, n.getRelation(), impactMatrix, prefModel);
+	
+	}
+
+	/**
+	 * Construct a new preference relation by adding a new preference statement.
+	 * 
+	 * @param a1
+	 * @param a2
+	 * @param relation
+	 * @param impactMatrix
+	 * @param prefModel
+	 * @return
+	 */
+	private static TransitiveRelation constructRelation(int a1, int a2, 
+			TransitiveRelation relation, RealMatrix impactMatrix, PreferenceModel prefModel) {
+		TransitiveRelation newRel = relation.deepCopy();
+		
+		relation.addRelation(a1, a2);
+		
+		// TODO: add filtering of values with the preference model
+		
+		return newRel;
 	}
 
 }

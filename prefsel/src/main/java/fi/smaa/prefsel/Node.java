@@ -1,6 +1,6 @@
 package fi.smaa.prefsel;
 
-public interface Node {
+public interface Node<T, C> {
 
-	public Node[] getChildren();
+	public Node<C, T>[] getChildren();
 }

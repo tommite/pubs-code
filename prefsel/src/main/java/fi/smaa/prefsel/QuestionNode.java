@@ -1,20 +1,13 @@
 package fi.smaa.prefsel;
 
-import java.util.ArrayList;
 
-import org.apache.commons.math3.linear.RealMatrix;
+public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 
-import fi.smaa.prefsel.PreferenceModel.PreferenceRelation;
-
-public class QuestionNode implements Node {
-
+	private TransitiveRelation prefs;
 	private Question[] remainingQuestions;
 	private AnswerNode leftChild;
 	private AnswerNode rightChild;
 	private Question question;
-	private TransitiveRelation prefs;
-	private PreferenceModel prefModel;
-	private RealMatrix impacts;
 
 	/**
 	 * Create a question node that has no children expanded.
@@ -22,12 +15,10 @@ public class QuestionNode implements Node {
 	 * @param question
 	 * @param remainingQuestions
 	 */
-	public QuestionNode(Question question, Question[] remainingQuestions, TransitiveRelation prefs, PreferenceModel prefModel, RealMatrix impactMatrix) {
+	public QuestionNode(Question question, Question[] remainingQuestions, TransitiveRelation prefs) {
 		this.question = question;
-		this.remainingQuestions = remainingQuestions;		
+		this.remainingQuestions = remainingQuestions;
 		this.prefs = prefs;
-		this.prefModel = prefModel;
-		this.impacts = impactMatrix;
 	}
 	
 	public Question getQuestion() {
@@ -46,6 +37,7 @@ public class QuestionNode implements Node {
 		return remainingQuestions;
 	}
 
+	/*
 	private AnswerNode createAnswerNode(int a1, int a2) {
 		if (a1 < 0 || a2 < 0 || a1 >= impacts.getRowDimension() || a2 >= impacts.getRowDimension()) {
 			throw new IllegalArgumentException("PRECOND violation");
@@ -74,26 +66,29 @@ public class QuestionNode implements Node {
 		}
 		return new AnswerNode(newQ.toArray(new Question[0]), a1, newPrefs, newPrefModel, impacts);
 	}
+	*/
 
+	
 	/**
 	 * PRECOND: getLeftChild() == null
 	 */
-	public void expandLeft() {
+	public void expandLeft(Question[] remainingQs, TransitiveRelation newPrefs) {
 		if (getLeftChild() != null) {
 			throw new IllegalStateException("PRECOND violation: getLeftChild() != null");
 		}
-		leftChild = createAnswerNode(question.getA1(), question.getA2());
+		leftChild = new AnswerNode(question.getA1(), remainingQs, newPrefs);
 	}
 	
 	/**
 	 * PRECOND: getRightChild() == null
 	 */
-	public void expandRight() {
+	public void expandRight(Question[] remainingQs, TransitiveRelation newPrefs) {
 		if (getRightChild() != null) {
 			throw new IllegalStateException("PRECOND violation: getRightChild() != null");
 		}
-		rightChild = createAnswerNode(question.getA2(), question.getA1());
+		rightChild = new AnswerNode(question.getA2(), remainingQs, newPrefs);
 	}
+	
 	
 	public AnswerNode[] getChildren() {
 		return new AnswerNode[] {getLeftChild(), getRightChild()};
@@ -102,5 +97,9 @@ public class QuestionNode implements Node {
 	@Override
 	public String toString() {
 		return "q" + getLeftChild().getAnswer() + "or" + getRightChild().getAnswer();
+	}
+
+	public TransitiveRelation getRelation() {
+		return prefs;
 	}
 }
