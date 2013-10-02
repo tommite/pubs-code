@@ -18,7 +18,7 @@ public class QuestionNodeTest {
 				new Question(2, 3),
 				new Question(3, 4)
 		};
-		node = new QuestionNode(q, remQs, new TransitiveRelation(4));
+		node = new QuestionNode(q, remQs, new TransitiveAntisymmetricRelation(4));
 	}
 	
 	@Test
@@ -31,14 +31,14 @@ public class QuestionNodeTest {
 	
 	@Test
 	public void testExpandLeft() {
-		node.expandLeft(remQs, new TransitiveRelation(3));
+		node.expandLeft(remQs, new TransitiveAntisymmetricRelation(3));
 		AnswerNode ln = node.getLeftChild();
 		assertEquals(1, ln.getAnswer());
 	}
 	
 	@Test
 	public void testExpandRight() {
-		node.expandRight(remQs, new TransitiveRelation(3));
+		node.expandRight(remQs, new TransitiveAntisymmetricRelation(3));
 		AnswerNode ln = node.getRightChild();
 		assertEquals(2, ln.getAnswer());
 	}

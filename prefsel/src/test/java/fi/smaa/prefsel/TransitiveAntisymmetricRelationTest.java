@@ -5,20 +5,24 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TransitiveRelationTest {
+public class TransitiveAntisymmetricRelationTest {
 	
-	private TransitiveRelation rel;
+	private TransitiveAntisymmetricRelation rel;
 
 	@Before
 	public void setUp() {
-		rel = new TransitiveRelation(3);
+		rel = new TransitiveAntisymmetricRelation(3);
 	}
 	
 	@Test
 	public void testEmptyRelation() {
 		for (int i=0;i<3;i++) {
 			for (int j=0;i<3;i++) {
-				assertFalse(rel.getRelation(i, j));
+				if (i == j) {
+					assertTrue(rel.getRelation(i, j));
+				} else {
+					assertFalse(rel.getRelation(i, j));
+				}
 			}
 		}
 	}

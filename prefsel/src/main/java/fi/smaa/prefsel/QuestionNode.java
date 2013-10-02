@@ -3,7 +3,7 @@ package fi.smaa.prefsel;
 
 public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 
-	private TransitiveRelation prefs;
+	private TransitiveAntisymmetricRelation prefs;
 	private Question[] remainingQuestions;
 	private AnswerNode leftChild;
 	private AnswerNode rightChild;
@@ -15,7 +15,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	 * @param question
 	 * @param remainingQuestions
 	 */
-	public QuestionNode(Question question, Question[] remainingQuestions, TransitiveRelation prefs) {
+	public QuestionNode(Question question, Question[] remainingQuestions, TransitiveAntisymmetricRelation prefs) {
 		this.question = question;
 		this.remainingQuestions = remainingQuestions;
 		this.prefs = prefs;
@@ -72,7 +72,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	/**
 	 * PRECOND: getLeftChild() == null
 	 */
-	public void expandLeft(Question[] remainingQs, TransitiveRelation newPrefs) {
+	public void expandLeft(Question[] remainingQs, TransitiveAntisymmetricRelation newPrefs) {
 		if (getLeftChild() != null) {
 			throw new IllegalStateException("PRECOND violation: getLeftChild() != null");
 		}
@@ -82,7 +82,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	/**
 	 * PRECOND: getRightChild() == null
 	 */
-	public void expandRight(Question[] remainingQs, TransitiveRelation newPrefs) {
+	public void expandRight(Question[] remainingQs, TransitiveAntisymmetricRelation newPrefs) {
 		if (getRightChild() != null) {
 			throw new IllegalStateException("PRECOND violation: getRightChild() != null");
 		}
@@ -99,7 +99,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 		return "q" + getLeftChild().getAnswer() + "or" + getRightChild().getAnswer();
 	}
 
-	public TransitiveRelation getRelation() {
+	public TransitiveAntisymmetricRelation getRelation() {
 		return prefs;
 	}
 }

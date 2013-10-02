@@ -17,7 +17,7 @@ public class LinearVFPreferenceModelTest {
 				{0.0, 1.0},
 				{0.2, 0.2}
 		});
-		TransitiveRelation prefs = new TransitiveRelation(3);
+		TransitiveAntisymmetricRelation prefs = new TransitiveAntisymmetricRelation(3);
 		assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, p.compare(prefs, im, im.getRow(0), im.getRow(2)));		
 	}
 
@@ -28,7 +28,7 @@ public class LinearVFPreferenceModelTest {
 				{0.0, 1.0},
 				{0.2, 0.2}
 		});
-		TransitiveRelation prefs = new TransitiveRelation(3);
+		TransitiveAntisymmetricRelation prefs = new TransitiveAntisymmetricRelation(3);
 		prefs.addRelation(0, 1);
 		assertEquals(PreferenceModel.PreferenceRelation.FIRST_PREFERRED, p.compare(prefs, im, im.getRow(0), im.getRow(2)));
 	}
@@ -40,10 +40,10 @@ public class LinearVFPreferenceModelTest {
 				{1.0, 0.0},
 				{0.2, 0.2}
 		});
-		TransitiveRelation prefs = new TransitiveRelation(3);
+		TransitiveAntisymmetricRelation prefs = new TransitiveAntisymmetricRelation(3);
 		
 		prefs.addRelation(1, 0);
-		assertEquals(PreferenceModel.PreferenceRelation.SECOND_PREFERRED, p.compare(prefs, im, im.getRow(0), im.getRow(2)));
+		assertEquals(PreferenceModel.PreferenceRelation.SECOND_PREFERRED, p.compare(prefs, im, im.getRow(2), im.getRow(1)));
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class LinearVFPreferenceModelTest {
 				{0.0, 1.0},
 				{0.2, 0.2}
 		});
-		TransitiveRelation prefs = new TransitiveRelation(3);
+		TransitiveAntisymmetricRelation prefs = new TransitiveAntisymmetricRelation(3);
 		prefs.addRelation(1, 2);
 		assertEquals(PreferenceModel.PreferenceRelation.INCOMPARABLE, p.compare(prefs, im, im.getRow(0), im.getRow(1)));
 	}

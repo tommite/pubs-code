@@ -10,7 +10,7 @@ public class AnswerNode implements Node<AnswerNode, QuestionNode> {
 
 	public static final int NO_ANSWER = -1;
 
-	public AnswerNode(int answer, Question[] remainingQuestions, TransitiveRelation prefs) {
+	public AnswerNode(int answer, Question[] remainingQuestions, TransitiveAntisymmetricRelation prefs) {
 		this.answer = answer;
 		createChildren(remainingQuestions, prefs);
 	}
@@ -21,11 +21,11 @@ public class AnswerNode implements Node<AnswerNode, QuestionNode> {
 	 * @param remainingQuestions
 	 */
 	public AnswerNode(Question[] allQuestions, int nrAlts) {
-		this(NO_ANSWER, allQuestions, new TransitiveRelation(nrAlts));
+		this(NO_ANSWER, allQuestions, new TransitiveAntisymmetricRelation(nrAlts));
 	}
 
 	
-	private void createChildren(Question[] remainingQuestions, TransitiveRelation prefs) {
+	private void createChildren(Question[] remainingQuestions, TransitiveAntisymmetricRelation prefs) {
 		children = new QuestionNode[remainingQuestions.length];
 		for (int i=0;i<remainingQuestions.length;i++) {
 			children[i] = new QuestionNode(remainingQuestions[i], cloneArrayWithoutOne(remainingQuestions, i), prefs);

@@ -38,9 +38,9 @@ public class ExhaustiveQuestionTreeSearch {
 		if (n.getRelation().getRelation(a1, a2) || n.getRelation().getRelation(a2, a1)) {
 			throw new IllegalStateException("Question for a relation that is already set");
 		}
-	
-		TransitiveRelation newRelationLeft = constructRelation(a1, a2, n.getRelation(), impactMatrix, prefModel);
-		TransitiveRelation newRelationRight = constructRelation(a2, a1, n.getRelation(), impactMatrix, prefModel);
+		
+		TransitiveAntisymmetricRelation newRelationLeft = constructRelation(a1, a2, n.getRelation(), impactMatrix, prefModel);
+		TransitiveAntisymmetricRelation newRelationRight = constructRelation(a2, a1, n.getRelation(), impactMatrix, prefModel);
 		
 		Question[] qsLeft = filterQuestions(n.getRemainingQuestions(), newRelationLeft);
 		Question[] qsRight = filterQuestions(n.getRemainingQuestions(), newRelationRight);
@@ -49,7 +49,7 @@ public class ExhaustiveQuestionTreeSearch {
 		n.expandRight(qsRight, newRelationRight);
 	}
 
-	private static Question[] filterQuestions(Question[] qs, TransitiveRelation rel) {
+	private static Question[] filterQuestions(Question[] qs, TransitiveAntisymmetricRelation rel) {
 		ArrayList<Question> ql = new ArrayList<Question>();
 		for (Question q : qs) {
 			if (!rel.getRelation(q.getA1(), q.getA2()) && !rel.getRelation(q.getA2(), q.getA1())) {
@@ -60,7 +60,7 @@ public class ExhaustiveQuestionTreeSearch {
 	}
 
 	/**
-	 * Construct a new preference relation by adding a new preference statement a1 > a2.
+	 * Construct a new preference relation by adding a new preference statement a1 >= a2.
 	 * 
 	 * @param a1 the alternative being preferred
 	 * @param a2 the alternative being not preferred
@@ -69,16 +69,19 @@ public class ExhaustiveQuestionTreeSearch {
 	 * @param prefModel the applied preference model
 	 * @return A new preference relation including (a1, a2) and possible other pairs inferred through the preference model 
 	 */
-	private static TransitiveRelation constructRelation(int a1, int a2, TransitiveRelation relation, RealMatrix impactMatrix, PreferenceModel prefModel) {
-		TransitiveRelation newRel = relation.deepCopy();
+	private static TransitiveAntisymmetricRelation constructRelation(int a1, int a2, TransitiveAntisymmetricRelation relation, RealMatrix impactMatrix, PreferenceModel prefModel) {
+		TransitiveAntisymmetricRelation newRel = relation.deepCopy();
 		
 		newRel.addRelation(a1, a2);
-		
 		for (Pair p : newRel.negativeIterator()) {
+			if (newRel.getRelation(p.getFirst(), p.getSecond()) || newRel.getRelation(p.getSecond(), p.getFirst())) {
+				continue;
+			}
 			PreferenceRelation val = prefModel.compare(newRel, impactMatrix, impactMatrix.getRow(p.getFirst()), impactMatrix.getRow(p.getSecond()));
 			if (val == PreferenceRelation.FIRST_PREFERRED) {
 				newRel.addRelation(p.getFirst(), p.getSecond());
-			} else if (val == PreferenceRelation.SECOND_PREFERRED) {
+			}
+			if (val == PreferenceRelation.SECOND_PREFERRED) {
 				newRel.addRelation(p.getSecond(), p.getFirst());
 			}
 		}

@@ -30,16 +30,15 @@ public class ExhaustiveQuestionTreeSearchTest {
 	
 	@Test
 	public void testTraversalWithLinearVFCut() {
-		System.out.println("\n\n\n\n\n---");
 		RealMatrix im = new Array2DRowRealMatrix(new double[][]{
 				{1.0, 0.0},
 				{0.0, 1.0},
-				{0.2, 0.2}
+				{0.1, 0.8}
 		});
 		LinearVFPreferenceModel p = new LinearVFPreferenceModel();
 		root = ExhaustiveQuestionTreeSearch.buildTree(im, p);
 		QuestionNode[] children = root.getChildren();
-		assertEquals(0, children[0].getChildren()[0].getChildren().length);
+		assertEquals(1, children[0].getChildren()[0].getChildren().length);
 		assertEquals(2, children[1].getChildren()[0].getChildren().length);
 	}
 	

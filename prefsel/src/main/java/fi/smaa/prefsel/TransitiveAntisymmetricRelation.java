@@ -5,14 +5,33 @@ import java.util.Iterator;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 
-public class TransitiveRelation {
+public class TransitiveAntisymmetricRelation {
 
 	private static final double RELATION_TRUE = 1.0;
 	
 	private RealMatrix matrix;
 
-	public TransitiveRelation(int nrAlts) {
+	public TransitiveAntisymmetricRelation(int nrAlts) {
 		matrix = MatrixUtils.createRealMatrix(nrAlts, nrAlts);
+		for (int i=0;i<nrAlts;i++) {
+			matrix.setEntry(i, i, 1.0);
+		}
+	}
+	
+	/**
+	 * Gets the amount of trues in the relation 
+	 * @return the number of trues in the relation
+	 */
+	public int getTrueCount() {
+		int sum = 0;
+		for (int i=0;i<matrix.getRowDimension();i++) {
+			for (int j=0;j<matrix.getColumnDimension();j++) {
+				if (getRelation(i, j)) {
+					sum++;
+				}
+			}
+		}
+		return sum;
 	}
 	
 	public boolean getRelation(int a1, int a2) {
@@ -28,26 +47,33 @@ public class TransitiveRelation {
 	
 	public void addRelation(int a1, int a2) {
 		checkA1A2(a1, a2);
-		if (!getRelation(a1, a2)) {
-			matrix.setEntry(a1, a2, RELATION_TRUE);
-			addDominances(a1, a2);
+		if (getRelation(a1, a2)) {
+			throw new IllegalArgumentException("a1 > a2 already in the relation");
 		}
+		matrix.setEntry(a1, a2, RELATION_TRUE);
+		addDominances(a1, a2);
 	}
 
 	private void addDominances(int a1, int a2) {
-		for (int i=0;i<matrix.getColumnDimension();i++) {
-			if (i != a1 && i != a2) {
-				if (getRelation(a2, i) && !getRelation(a1, i)) {
-					addRelation(a1, i);
-				} else if (getRelation(i, a1) && !getRelation(i, a2)) {
-					addRelation(i, a2);
+		boolean adds = false;
+		do {
+			adds = false;
+			for (int i=0;i<matrix.getColumnDimension();i++) {
+				if (i != a1 && i != a2) {
+					if (getRelation(a2, i) && !getRelation(a1, i)) {
+						addRelation(a1, i);
+						adds = true;
+					} else if (getRelation(i, a1) && !getRelation(i, a2)) {
+						addRelation(i, a2);
+						adds = true;
+					}
 				}
 			}
-		}
+		} while (adds);
 	}
 
-	public TransitiveRelation deepCopy() {
-		TransitiveRelation t = new TransitiveRelation(matrix.getColumnDimension());
+	public TransitiveAntisymmetricRelation deepCopy() {
+		TransitiveAntisymmetricRelation t = new TransitiveAntisymmetricRelation(matrix.getColumnDimension());
 		t.matrix = matrix.copy();
 		return t;
 	}
@@ -83,8 +109,14 @@ public class TransitiveRelation {
 			i++;
 			for (;i<matrix.getRowDimension();i++) {
 				for (;j<matrix.getColumnDimension();j++) {
-					if (getRelation(i, j) == ones) {
-						return;
+					if (ones) {
+						if (getRelation(i, j) && !getRelation(j, i)) {
+							return;
+						}
+					} else {
+						if (!getRelation(i, j) && !getRelation(j, i)) {
+							return;
+						}
 					}
 				}
 				j = 0;
