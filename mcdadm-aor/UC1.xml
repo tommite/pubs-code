@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x3e:example xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex UC1.xsd http://www.decision-deck.org/xmcda3 https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"
+	xmlns:x3e="http://www.decision-deck.org/xmcda3/ex" xmlns:x3="http://www.decision-deck.org/xmcda3">
+	<alternativeSet>
+		<alternative>
+			<id>Car1</id>
+		</alternative>
+		<alternative>
+			<id>Car2</id>
+		</alternative>
+	</alternativeSet>
+
+	<attributeSet>
+		<attribute>
+			<id>Speed</id>
+		</attribute>
+		<attribute>
+			<id>Color</id>
+		</attribute>
+	</attributeSet>
+
+	<criterionSet>
+		<criterion xsi:type="x3:nominalUtilityCriterionType">
+			<id>colorCriterion</id>
+			<attribute ref="Color" />
+			<categoryUtility>
+				<entity ref="Blue" />
+				<measurement>
+					<value>1.0</value>
+				</measurement>
+			</categoryUtility>
+			<categoryUtility>
+				<entity ref="Red" />
+				<measurement>
+					<value>0.0</value>
+				</measurement>
+			</categoryUtility>
+		</criterion>
+	</criterionSet>
+
+	<performanceTable>
+		<valuedPair>
+			<from ref="Car1" />
+			<to ref="Speed" />
+			<measurement xsi:type="x3:exactMeasurementType">
+				<value>120</value>
+			</measurement>
+		</valuedPair>
+		<valuedPair>
+			<from ref="Car1" />
+			<to ref="Color" />
+			<measurement xsi:type="x3:nominalMeasurementType">
+				<category>red</category>
+			</measurement>
+		</valuedPair>
+		<valuedPair>
+			<from ref="Car2" />
+			<to ref="Speed" />
+			<measurement xsi:type="x3:exactMeasurementType">
+				<value>140</value>
+			</measurement>
+		</valuedPair>
+		<valuedPair>
+			<from ref="Car2" />
+			<to ref="Color" />
+			<measurement xsi:type="x3:nominalMeasurementType">
+				<category>blue</category>
+			</measurement>
+		</valuedPair>
+	</performanceTable>
+</x3e:example>

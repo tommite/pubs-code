@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.decision-deck.org/xmcda3/electre"
+	xmlns:x3="http://www.decision-deck.org/xmcda3" xmlns:x3e="http://www.decision-deck.org/xmcda3/electre"
+	elementFormDefault="unqualified">
+
+	<import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></import>
+
+	<element name="concordanceInput">
+		<complexType>
+			<sequence>
+				<element name="weights" type="x3:valuedEntitySetType" />
+				<element name="attributes" type="x3:attributeSetType" />
+				<element name="performances" type="x3:valuedRelationType" />
+				<element name="criteria" type="x3:outrankingCriterionSetType" />
+				<element name="alternatives" type="x3:alternativeSetType" />
+			</sequence>
+		</complexType>
+
+		<key name="alternativeKey">
+			<selector xpath="alternatives/alternative" />
+			<field xpath="id" />
+		</key>
+		<key name="attributeKey">
+			<selector xpath="attributes/attribute" />
+			<field xpath="id" />
+		</key>
+		<key name="criterionKey">
+			<selector xpath="criteria/criterion" />
+			<field xpath="id" />
+		</key>
+		<keyref name="performancesAlternativeKeyRef" refer="x3e:alternativeKey">
+			<selector xpath="performances/valuedPair" />
+			<field xpath="from/@ref" />
+		</keyref>
+		<keyref name="performancesAttributeKeyRef" refer="x3e:attributeKey">
+			<selector xpath="performances/valuedPair" />
+			<field xpath="to/@ref" />
+		</keyref>
+		<keyref name="weightCriterionKeyRef" refer="x3e:criterionKey">
+			<selector xpath="weights" />
+			<field xpath="entity/@ref" />
+		</keyref>
+	</element>
+</schema>

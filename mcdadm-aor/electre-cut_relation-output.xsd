@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.decision-deck.org/xmcda3/electre"
+	xmlns:x3="http://www.decision-deck.org/xmcda3" xmlns:x3e="http://www.decision-deck.org/xmcda3/electre"
+	elementFormDefault="unqualified">
+
+	<import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></import>
+
+	<element name="cut_relationOutput">
+		<complexType>
+			<sequence>
+				<element name="relation" type="x3:binaryRelationType" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>

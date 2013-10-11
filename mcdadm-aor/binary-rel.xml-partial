@@ -1,0 +1,32 @@
+<exampleTwo>
+	<alternativeSet>
+		<alternative>
+			<id>a1</id>
+		</alternative>
+		<alternative>
+			<id>a2</id>
+		</alternative>
+		<alternative>
+			<id>a3</id>
+		</alternative>
+	</alternativeSet>
+
+	<relation>
+		<valuedPair>
+			<from ref="a1" />
+			<to ref="a2" />
+		</valuedPair>
+		<valuedPair>
+			<from ref="a2" />
+			<to ref="a3" />
+		</valuedPair>
+		<valuedPair>
+			<from ref="a3" />
+			<to ref="a1" />
+		</valuedPair>
+		<valuedPair>
+			<from ref="a3" />
+			<to ref="a2" />
+		</valuedPair>
+	</relation>
+</exampleTwo>

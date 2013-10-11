@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uc:utagmsInput xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/uc UC6.xsd"
+	xmlns:uc="http://www.decision-deck.org/xmcda3/uc">
+	
+	<alternatives>
+		<alternative>
+			<id>car1</id>
+		</alternative>
+		<alternative>
+			<id>car2</id>
+		</alternative>
+	</alternatives>
+	
+	<preferences>
+		<valuedPair>
+			<from ref="car1"/>
+			<to ref="car2"/>
+		</valuedPair>
+	</preferences>
+</uc:utagmsInput>

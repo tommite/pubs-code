@@ -1,0 +1,9 @@
+<example>
+	<attribute>
+		<id>a1</id>
+	</attribute>
+	<criterion xsi:type="x3:directUtilityCriterionType">
+		<id>c1</id>
+		<attribute ref="a1" />
+	</criterion>
+</example>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- An example file which does not validate because a path constraint is not satisfied. -->
+<x3e:exampleOne xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex path-cstr-complete.xsd"
+	xmlns:x3e="http://www.decision-deck.org/xmcda3/ex" xmlns:x3="http://www.decision-deck.org/xmcda3">
+	<alternativeSet>
+		<alternative>
+			<id>a1</id>
+		</alternative>
+		<alternative>
+			<id>a2</id>
+		</alternative>
+		<alternative>
+			<id>a3</id>
+		</alternative>
+	</alternativeSet>
+
+	<attributeSet>
+		<attribute>
+			<id>at1</id>
+		</attribute>
+		<attribute>
+			<id>at2</id>
+		</attribute>
+		<attribute>
+			<id>at3</id>
+		</attribute>
+	</attributeSet>
+
+	<performanceTable>
+		<valuedPair>
+			<from ref="a1" />
+			<to ref="at1" />
+			<measurement>
+				<value>3</value>
+			</measurement>
+		</valuedPair>
+		<valuedPair>
+			<from ref="a1" />
+			<to ref="a2" />
+			<measurement>
+				<value>3</value>
+			</measurement>
+		</valuedPair>
+	</performanceTable>
+</x3e:exampleOne>

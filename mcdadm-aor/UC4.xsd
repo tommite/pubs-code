@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.decision-deck.org/xmcda3/ex"
+	xmlns:x3="http://www.decision-deck.org/xmcda3" xmlns:x3e="http://www.decision-deck.org/xmcda3/ex"
+	elementFormDefault="unqualified">
+
+	<import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></import>
+
+	<element name="example">
+		<complexType>
+			<sequence>
+				<element name="attribute" type="x3:attributeType" />
+				<element name="criterion" type="x3:outrankingCriterionType" />
+				<element name="performances" type="x3:valuedRelationType" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>

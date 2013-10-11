@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.decision-deck.org/xmcda3/ex"
+	xmlns:x3="http://www.decision-deck.org/xmcda3" xmlns:x3e="http://www.decision-deck.org/xmcda3/ex"
+	elementFormDefault="unqualified">
+
+	<import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></import>
+
+	<element name="exampleOne">
+		<complexType>
+			<sequence>
+				<element name="alternativeSet" type="x3:alternativeSetType" />
+				<element name="attributeSet" type="x3:attributeSetType" />
+				<element name="performanceTable" type="x3:valuedRelationType" />
+			</sequence>
+		</complexType>
+
+		<key name="alternativeKey">
+			<selector xpath="alternativeSet/alternative" />
+			<field xpath="id" />
+		</key>
+		<key name="attributeKey">
+			<selector xpath="attributeSet/attribute" />
+			<field xpath="id" />
+		</key>
+		<keyref name="performanceTableAlternativeKeyRef" refer="x3e:alternativeKey">
+			<selector xpath="performanceTable/valuedPair/from" />
+			<field xpath="@ref" />
+		</keyref>
+		<keyref name="performanceTableAttributeKeyRef" refer="x3e:attributeKey">
+			<selector xpath="performanceTable/valuedPair/to" />
+			<field xpath="@ref" />
+		</keyref>
+	</element>
+</schema>

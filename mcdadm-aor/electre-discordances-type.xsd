@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.decision-deck.org/xmcda3/electre/discordances"
+	xmlns:x3="http://www.decision-deck.org/xmcda3" elementFormDefault="unqualified">
+
+	<import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></import>
+
+	<complexType name="discordancesType">
+		<sequence minOccurs="0">
+			<element name="criterion" type="x3:criterionReference" />
+			<element name="discordanceRelation" type="x3:valuedRelationType" />
+		</sequence>
+	</complexType>
+</schema>

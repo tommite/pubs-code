@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x3e:example xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex UC4.xsd http://www.decision-deck.org/xmcda3 https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"
+	xmlns:x3e="http://www.decision-deck.org/xmcda3/ex" xmlns:x3="http://www.decision-deck.org/xmcda3">
+	<attribute>
+		<id>CardinalColor</id>
+	</attribute>
+	<criterion>
+		<id>ColorCriterion</id>
+		<attribute ref="CardinalColor" />
+		<preferenceDirection>ascending</preferenceDirection>
+		<preferenceThreshold>
+			<a>0</a>
+			<b>1.0</b>
+		</preferenceThreshold>
+		<indifferenceThreshold>
+			<a>0</a>
+			<b>3.0</b>
+		</indifferenceThreshold>
+	</criterion>
+	<performances>
+		<valuedPair>
+			<from ref="Car1" />
+			<to ref="CardinalColor" />
+			<measurement>
+				<value>3.0</value>
+			</measurement>
+		</valuedPair>
+		<valuedPair>
+			<from ref="Car2" />
+			<to ref="CardinalColor" />
+			<measurement>
+				<value>10.0</value>
+			</measurement>
+		</valuedPair>
+	</performances>
+</x3e:example>

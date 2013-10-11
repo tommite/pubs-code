@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.decision-deck.org/xmcda3/electre"
+	xmlns:x3="http://www.decision-deck.org/xmcda3" xmlns:x3et="http://www.decision-deck.org/xmcda3/electre/discordances"
+	xmlns:x3e="http://www.decision-deck.org/xmcda3/electre"
+	elementFormDefault="unqualified">
+
+	<import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></import>
+
+	<import namespace="http://www.decision-deck.org/xmcda3/electre/discordances"
+		schemaLocation="./electre-discordances-type.xsd"></import>
+
+	<element name="discordanceOutput">
+		<complexType>
+			<sequence>
+				<element name="discordances" type="x3et:discordancesType" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.decision-deck.org/xmcda3/ex2" xmlns:x3="http://www.decision-deck.org/xmcda3"
+	xmlns:x3e="http://www.decision-deck.org/xmcda3/ex2" elementFormDefault="unqualified">
+
+	<xs:import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></xs:import>
+
+	<xs:element name="exampleTwo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="alternativeSet" type="x3:alternativeSetType" />
+				<xs:element name="relation" type="x3:binaryRelationType" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

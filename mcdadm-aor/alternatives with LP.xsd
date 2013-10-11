@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.decision-deck.org/xmcda3/electre" xmlns:x3="http://www.decision-deck.org/xmcda3"
+	xmlns:x3e="http://www.decision-deck.org/xmcda3/electre" xmlns:os="os.optimizationservices.org"
+	elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.decision-deck.org/xmcda3"
+		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></xs:import>
+	<xs:import namespace="os.optimizationservices.org"
+		schemaLocation="http://www.optimizationservices.org/schemas/OSiL.xsd"></xs:import>
+
+	<xs:element name="test">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="alternatives" type="x3:alternativeSetType" />
+				<xs:element name="lp" type="os:OSiL" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

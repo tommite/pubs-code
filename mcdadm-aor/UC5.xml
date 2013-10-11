@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uc:uc5model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/uc UC5.xsd"
+	xmlns:uc="http://www.decision-deck.org/xmcda3/uc"
+	xmlns:x3="http://www.decision-deck.org/xmcda3">
+		
+	<alternatives>
+		<alternative>
+			<id>Car1</id>
+		</alternative>
+		<alternative>
+			<id>Car2</id>
+		</alternative>
+	</alternatives>
+	
+	<attributes>
+		<attribute>
+			<id>Speed</id>
+		</attribute>
+	</attributes>
+	
+	<criteria>
+		<criterion>
+			<id>c1</id>		
+			<attribute ref="Speed"/>
+			<utilityFunction xsi:type="x3:piecewiseLinearFunctionType">
+				<point>
+					<x>110.0</x>
+					<y>0.0</y>
+				</point>
+				<point>
+					<x>160.0</x>
+					<y>1.0</y>
+				</point>				
+			</utilityFunction>
+		</criterion>
+	</criteria>
+	
+	<performances>
+		<valuedPair>
+			<from ref="Car1"/>
+			<to ref="Speed"/>
+			<measurement>
+				<value>140.0</value>
+			</measurement>
+		</valuedPair>
+		<valuedPair>
+			<from ref="Car2"/>
+			<to ref="Speed"/>
+			<measurement>
+				<value>120.0</value>
+			</measurement>
+		</valuedPair>		
+	</performances>
+	
+</uc:uc5model>

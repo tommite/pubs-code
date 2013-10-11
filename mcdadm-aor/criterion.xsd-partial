@@ -1,0 +1,10 @@
+<xs:schema>
+	<xs:element name="example">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="attribute" type="x3:attributeType" />
+				<xs:element name="criterion" type="x3:criterionType" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

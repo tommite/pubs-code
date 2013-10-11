@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x3ex2:exampleTwo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex2 binary-rel.xsd"
+	xmlns:x3ex2="http://www.decision-deck.org/xmcda3/ex2">
+	<alternativeSet>
+		<alternative>
+			<id>a1</id>
+		</alternative>
+		<alternative>
+			<id>a2</id>
+		</alternative>
+		<alternative>
+			<id>a3</id>
+		</alternative>
+	</alternativeSet>
+
+	<relation>
+		<valuedPair>
+			<from ref="a1" />
+			<to ref="a2" />
+		</valuedPair>
+		<valuedPair>
+			<from ref="a2" />
+			<to ref="a3" />
+		</valuedPair>
+		<valuedPair>
+			<from ref="a3" />
+			<to ref="a1" />
+		</valuedPair>
+		<valuedPair>
+			<from ref="a3" />
+			<to ref="a2" />
+		</valuedPair>
+	</relation>
+</x3ex2:exampleTwo>

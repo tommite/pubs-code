@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x3e:example xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex UC2.xsd http://www.decision-deck.org/xmcda3 https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"
+	xmlns:x3e="http://www.decision-deck.org/xmcda3/ex" xmlns:x3="http://www.decision-deck.org/xmcda3">
+	<alternativeSet>
+		<alternative>
+			<id>Car1</id>
+		</alternative>
+		<alternative>
+			<id>Car2</id>
+		</alternative>
+	</alternativeSet>
+
+	<attributeSet>
+		<attribute>
+			<id>Color</id>
+		</attribute>
+	</attributeSet>
+
+	<criterionSet>
+		<criterion xsi:type="x3:directUtilityCriterionType">
+			<id>colorCriterion</id>
+			<attribute ref="Color" />
+			<alternativeUtility>
+				<entity ref="Car1" />
+				<measurement>
+					<value>1.0</value>
+				</measurement>
+			</alternativeUtility>
+			<alternativeUtility>
+				<entity ref="Car2" />
+				<measurement>
+					<value>0.0</value>
+				</measurement>
+			</alternativeUtility>
+		</criterion>
+	</criterionSet>
+</x3e:example>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x3ex:example xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex criterion.xsd"
+	xmlns:x3ex="http://www.decision-deck.org/xmcda3/ex"
+	xmlns:x3="http://www.decision-deck.org/xmcda3">
+	<attribute>
+		<id>a1</id>
+	</attribute>
+	<criterion xsi:type="x3:directUtilityCriterionType">
+		<id>c1</id>
+		<attribute ref="a1" />
+	</criterion>
+</x3ex:example>
