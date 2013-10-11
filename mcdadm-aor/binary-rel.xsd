@@ -4,7 +4,7 @@
 	xmlns:x3e="http://www.decision-deck.org/xmcda3/ex2" elementFormDefault="unqualified">
 
 	<xs:import namespace="http://www.decision-deck.org/xmcda3"
-		schemaLocation="https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"></xs:import>
+		schemaLocation="http://raw.github.com/tommite/pubs-code/master/mcdadm-aor/xmcda3_types.xsd"></xs:import>
 
 	<xs:element name="exampleTwo">
 		<xs:complexType>

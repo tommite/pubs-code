@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x3e:example xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex UC1%20with%20path%20constraints.xsd http://www.decision-deck.org/xmcda3 https://github.com/tommite/xmcda3-entities/raw/master/src/main/xsd/xmcda3_types.xsd"
+	xsi:schemaLocation="http://www.decision-deck.org/xmcda3/ex UC1%20with%20path%20constraints.xsd http://www.decision-deck.org/xmcda3 http://raw.github.com/tommite/pubs-code/master/mcdadm-aor/xmcda3_types.xsd"
 	xmlns:x3e="http://www.decision-deck.org/xmcda3/ex" xmlns:x3="http://www.decision-deck.org/xmcda3">
 	<alternativeSet>
 		<alternative>
