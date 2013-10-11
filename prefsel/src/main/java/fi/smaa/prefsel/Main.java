@@ -10,9 +10,9 @@ public class Main {
 				{1, 2, 3},
 				{2, 1, 2},
 				{3, 1, 1}}
-		);
+		); 
 		
-		AnswerNode tree = ExhaustiveQuestionTreeSearch.buildTree(imp, null);
-		System.out.println(TreeTraverser.toDOT(tree));		
+		AnswerNode tree = ExhaustiveQuestionTreeSearch.buildTree(imp, new NullPreferenceModel());
+		System.out.println(TreeTraverser.toDOT(tree));
 	}
 }	

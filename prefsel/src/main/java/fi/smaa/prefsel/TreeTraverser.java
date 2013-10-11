@@ -25,14 +25,26 @@ public class TreeTraverser {
 	private static String nodeToDOT(Node root, Sequencer sequencer, Map<Node, Integer> sequences) {
 		String nodeS = nodeString(root, sequencer, sequences);
 		
-		String res = "";
+		String res = nodeS + "\t[label=" + nodeLabel(root) + "];\n";
 		for (Node qn : root.getChildren()) {
-			res += "\t" + nodeS + " -- " + nodeString(qn, sequencer, sequences) + "\n";
+			res += "\t" + nodeS + " -- " + nodeString(qn, sequencer, sequences) + ";\n";
 		}
 		for (Node qn : root.getChildren()) {
 			res += nodeToDOT(qn, sequencer, sequences);
 		}
 		return res;
+	}
+	
+	private static String nodeLabel(Node n) {
+		if (n instanceof AnswerNode) {
+			AnswerNode a = (AnswerNode) n;
+			return Integer.toString(a.getAnswer());
+		} else if (n instanceof QuestionNode){
+			QuestionNode q = (QuestionNode) n;
+			return q.getQuestion().getA1() + " ? " + q.getQuestion().getA2();
+		} else {
+			throw new IllegalArgumentException("strange node");
+		}
 	}
 
 	private static String nodeString(Node root, Sequencer sequencer,
