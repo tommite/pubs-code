@@ -59,7 +59,7 @@ public class RWrapper {
 		
 		int row = 0;
 		for (Pair p : preferences.iterator()) {
-			RealVector diff = im.getRowVector(p.getFirst()).subtract(im.getColumnVector(p.getSecond()));
+			RealVector diff = im.getRowVector(p.getSecond()).subtract(im.getColumnVector(p.getFirst()));
 			constr.setRowVector(row, diff);
 			row++;
 		}

@@ -1,9 +1,9 @@
 library(hitandrun)
 
 ## Variable 'constraints' contains the input, of which each row is a
-## linear constraint of type ax > 0
+## linear constraint of type ax <= 0
 
-
+constr <- list(constr=constraints, dir=rep('<=', nrow(constraints)), rhs=rep(0, nrow(constraints)))
 
 
 
