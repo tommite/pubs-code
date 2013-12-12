@@ -11,6 +11,11 @@ public class TransitiveAntisymmetricRelation {
 	
 	private RealMatrix matrix;
 
+	/**
+	 * Constructs a relation which is reflexive (R(a, a) = TRUE, forall a)
+	 *  
+	 * @param nrAlts
+	 */
 	public TransitiveAntisymmetricRelation(int nrAlts) {
 		matrix = MatrixUtils.createRealMatrix(nrAlts, nrAlts);
 		for (int i=0;i<nrAlts;i++) {
@@ -23,10 +28,18 @@ public class TransitiveAntisymmetricRelation {
 	 * @return the number of trues in the relation
 	 */
 	public int getTrueCount() {
+		return getCount(true);
+	}
+	
+	public int getFalseCount() {
+		return getCount(false);
+	}
+
+	private int getCount(boolean value) {
 		int sum = 0;
 		for (int i=0;i<matrix.getRowDimension();i++) {
 			for (int j=0;j<matrix.getColumnDimension();j++) {
-				if (getRelation(i, j)) {
+				if (getRelation(i, j) == value) {
 					sum++;
 				}
 			}
@@ -94,10 +107,18 @@ public class TransitiveAntisymmetricRelation {
 		};
 	}
 	
+	public int getNrBothDirectionsFalse() {
+		int c = 0;
+		for (@SuppressWarnings("unused") Pair p : negativeIterator()) {
+			c++;
+		}
+		return c;
+	}
+	
 	private class PreferenceIterator implements Iterator<Pair> {
 		
-		private int i=-1;
-		private int j=0;
+		private int i=0;
+		private int j=-1;
 		private boolean ones;
 		
 		public PreferenceIterator(boolean ones) {
@@ -106,7 +127,7 @@ public class TransitiveAntisymmetricRelation {
 		}
 		
 		private void findNext() {
-			i++;
+			j++;
 			for (;i<matrix.getRowDimension();i++) {
 				for (;j<matrix.getColumnDimension();j++) {
 					if (ones) {
@@ -114,7 +135,9 @@ public class TransitiveAntisymmetricRelation {
 							return;
 						}
 					} else {
-						if (!getRelation(i, j) && !getRelation(j, i)) {
+						if (j < i) {
+							continue;
+						} else if (!getRelation(i, j) && !getRelation(j, i)) {
 							return;
 						}
 					}

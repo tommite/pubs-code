@@ -40,5 +40,28 @@ public class TransitiveAntisymmetricRelationTest {
 		rel.addRelation(0, 1);
 		assertTrue(rel.getRelation(0, 2));
 	}
+	
+	@Test
+	public void testTrueCount() {
+		assertEquals(3, rel.getTrueCount());
+	}
+	
+	@Test
+	public void testFalseCount() {
+		assertEquals((3 * 3) - 3, rel.getFalseCount());
+	}
+	
+	@Test
+	public void testIteratorCount() {
+		int c = 0;
+		for (@SuppressWarnings("unused") Pair p : rel.iterator()) { c++; }
+		assertEquals(rel.getTrueCount() - 3, c);
+	}
+	
+	@Test
+	public void testGetNrBothDirectionsFalse() {
+		assertEquals(3, rel.getNrBothDirectionsFalse());
+	}
+
 
 }
