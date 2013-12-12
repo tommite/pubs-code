@@ -105,7 +105,6 @@ public class LinearVFPreferenceModel implements PreferenceModel {
 		for (int i=0;i<row.length;i++) {
 			v[i] = row[i] - row2[i];
 		}
-		//v[v.length-1] = 1.0; // add slack
 		return new LinearConstraint(v, Relationship.GEQ, EPS);
 	}
 

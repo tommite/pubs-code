@@ -60,7 +60,7 @@ public class ExhaustiveQuestionTreeSearch {
 	}
 
 	/**
-	 * Construct a new preference relation by adding a new preference statement a1 >= a2.
+	 * Construct a new preference relation by adding a new preference statement a1 > a2.
 	 * 
 	 * @param a1 the alternative being preferred
 	 * @param a2 the alternative being not preferred

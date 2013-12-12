@@ -15,6 +15,7 @@ import rcaller.RCode;
 public class RWrapper {
 	
 	private static final String R_EXECUTABLE = "/usr/bin/R";
+	private static final double EPS = 1E-10;
 	public static String SCRIPT_FILE = "/compute.metrics.R";
 	
 	private double hDVF;
@@ -87,6 +88,9 @@ public class RWrapper {
 			for (Pair p : preferences.iterator()) {
 				if (p.getFirst() != p.getSecond()) {
 					RealVector diff = im.getRowVector(p.getSecond()).subtract(im.getRowVector(p.getFirst()));
+					for (int i=0;i<diff.getDimension();i++) {
+						diff.addToEntry(i, EPS);
+					}
 					constr.setRowVector(row, diff);
 					row++;
 				}

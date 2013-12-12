@@ -12,14 +12,14 @@ public class TransitiveAntisymmetricRelation {
 	private RealMatrix matrix;
 
 	/**
-	 * Constructs a relation which is reflexive (R(a, a) = TRUE, forall a)
+	 * Constructs a relation which is not reflexive (R(a, a) = FALSE, forall a)
 	 *  
 	 * @param nrAlts
 	 */
 	public TransitiveAntisymmetricRelation(int nrAlts) {
 		matrix = MatrixUtils.createRealMatrix(nrAlts, nrAlts);
 		for (int i=0;i<nrAlts;i++) {
-			matrix.setEntry(i, i, 1.0);
+			matrix.setEntry(i, i, 0.0);
 		}
 	}
 	
@@ -130,6 +130,9 @@ public class TransitiveAntisymmetricRelation {
 			j++;
 			for (;i<matrix.getRowDimension();i++) {
 				for (;j<matrix.getColumnDimension();j++) {
+					if (i == j) {
+						continue;
+					}
 					if (ones) {
 						if (getRelation(i, j) && !getRelation(j, i)) {
 							return;
