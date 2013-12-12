@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class TreeTraverserTest {
 
-	private AnswerNode root;
+	private ConcreteAnswerNode root;
 
 	@Before
 	public void setUp() {

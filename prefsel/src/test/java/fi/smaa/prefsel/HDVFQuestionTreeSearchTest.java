@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class HDVFQuestionTreeSearchTest {
-	private AnswerNode root;
+	private ConcreteAnswerNode root;
 
 	@Before
 	public void setUp() {
@@ -26,10 +26,10 @@ public class HDVFQuestionTreeSearchTest {
 		QuestionNode[] ch = root.getChildren();
 		int nrAnswersExpanded = 0;
 		for (QuestionNode qn : ch) {
-			if (qn.getLeftChild() != null) {
+			if (!(qn.getLeftChild() instanceof UnexpandedNode)) {
 				nrAnswersExpanded++;
 			}
-			if (qn.getRightChild() != null) {
+			if (!(qn.getRightChild() instanceof UnexpandedNode)) {
 				nrAnswersExpanded++;
 			}
 		}

@@ -19,6 +19,8 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 		this.question = question;
 		this.remainingQuestions = remainingQuestions;
 		this.prefs = prefs;
+		leftChild = new UnexpandedNode(question.getA1());
+		rightChild = new UnexpandedNode(question.getA2());
 	}
 	
 	public Question getQuestion() {
@@ -73,20 +75,20 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	 * PRECOND: getLeftChild() == null
 	 */
 	public void expandLeft(Question[] remainingQs, TransitiveAntisymmetricRelation newPrefs) {
-		if (getLeftChild() != null) {
+		if (!(getLeftChild() instanceof UnexpandedNode)) {
 			throw new IllegalStateException("PRECOND violation: getLeftChild() != null");
 		}
-		leftChild = new AnswerNode(question.getA1(), remainingQs, newPrefs);
+		leftChild = new ConcreteAnswerNode(question.getA1(), remainingQs, newPrefs);
 	}
 	
 	/**
 	 * PRECOND: getRightChild() == null
 	 */
 	public void expandRight(Question[] remainingQs, TransitiveAntisymmetricRelation newPrefs) {
-		if (getRightChild() != null) {
+		if (!(getRightChild() instanceof UnexpandedNode)) {
 			throw new IllegalStateException("PRECOND violation: getRightChild() != null");
 		}
-		rightChild = new AnswerNode(question.getA2(), remainingQs, newPrefs);
+		rightChild = new ConcreteAnswerNode(question.getA2(), remainingQs, newPrefs);
 	}
 	
 	
@@ -96,7 +98,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	
 	@Override
 	public String toString() {
-		return "q" + getLeftChild().getAnswer() + "or" + getRightChild().getAnswer();
+		return "q" + getQuestion().getA1() + "or" + getQuestion().getA2();
 	}
 
 	public TransitiveAntisymmetricRelation getRelation() {

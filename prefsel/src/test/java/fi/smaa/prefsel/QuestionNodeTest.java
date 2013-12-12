@@ -25,8 +25,8 @@ public class QuestionNodeTest {
 	public void testConstructor() {
 		Assert.assertArrayEquals(remQs, node.getRemainingQuestions());
 		// make sure the children are not expanded
-		Assert.assertNull(node.getLeftChild());
-		Assert.assertNull(node.getRightChild());
+		Assert.assertTrue(node.getLeftChild() instanceof UnexpandedNode);
+		Assert.assertTrue(node.getRightChild() instanceof UnexpandedNode);
 	}
 	
 	@Test
@@ -46,8 +46,8 @@ public class QuestionNodeTest {
 	@Test
 	public void testGetChildren() {
 		AnswerNode[] c = node.getChildren();
-		assertNull(c[0]);
-		assertNull(c[1]);
 		assertEquals(2, c.length);
+		assertTrue(c[0] instanceof UnexpandedNode);
+		assertTrue(c[1] instanceof UnexpandedNode);
 	}
 }

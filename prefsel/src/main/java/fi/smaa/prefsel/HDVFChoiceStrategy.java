@@ -6,7 +6,7 @@ public class HDVFChoiceStrategy implements ChoiceStrategy {
 
 	public QuestionNode[] nodesToExpand(QuestionNode[] children, RealMatrix measurements) {
 		if (children.length < 1) {
-			return new QuestionNode[0];
+			return children;
 		}
 		double[] hdvf = new double[children.length];
 		RWrapper w = new RWrapper(children[0].getRelation(), measurements);

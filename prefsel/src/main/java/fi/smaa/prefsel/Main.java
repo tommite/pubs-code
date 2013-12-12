@@ -12,7 +12,9 @@ public class Main {
 				{3, 1, 1}}
 		); 
 		
-		AnswerNode tree = QuestionTreeSearch.buildTree(imp, new NullPreferenceModel(), new ExpandAllChoiceStrategy());
-		System.out.println(TreeTraverser.toDOT(tree));
+		AnswerNode fullTree = QuestionTreeSearch.buildTree(imp, new NullPreferenceModel(), new ExpandAllChoiceStrategy());
+		AnswerNode hdvfTree = QuestionTreeSearch.buildTree(imp, new LinearVFPreferenceModel(), new HDVFChoiceStrategy());		
+		
+		System.out.println(TreeTraverser.toDOT(hdvfTree));
 	}
 }	

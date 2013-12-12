@@ -14,10 +14,10 @@ import fi.smaa.prefsel.PreferenceModel.PreferenceRelation;
  */
 public class QuestionTreeSearch {
 	
-	public static AnswerNode buildTree(RealMatrix impactMatrix, PreferenceModel prefModel, ChoiceStrategy strategy) {
+	public static ConcreteAnswerNode buildTree(RealMatrix impactMatrix, PreferenceModel prefModel, ChoiceStrategy strategy) {
 		int nrAlts = impactMatrix.getRowDimension();
 		Question[] qs = QuestionGenerator.makeAllQuestions(nrAlts);
-		AnswerNode root = new AnswerNode(qs, nrAlts);
+		ConcreteAnswerNode root = new ConcreteAnswerNode(qs, nrAlts);
 		expandChildren(root, impactMatrix, prefModel, strategy);
 		return root;
 	}

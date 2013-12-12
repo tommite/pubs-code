@@ -25,19 +25,22 @@ public class TreeTraverser {
 	private static String nodeToDOT(Node root, Sequencer sequencer, Map<Node, Integer> sequences) {
 		String nodeS = nodeString(root, sequencer, sequences);
 		
-		String res = nodeS + "\t[label=" + nodeLabel(root) + "];\n";
+		String res = nodeS + "\t[label=\"" + nodeLabel(root) + "\"];\n";
 		for (Node qn : root.getChildren()) {
 			res += "\t" + nodeS + " -- " + nodeString(qn, sequencer, sequences) + ";\n";
 		}
 		for (Node qn : root.getChildren()) {
 			res += nodeToDOT(qn, sequencer, sequences);
 		}
+		
 		return res;
 	}
 	
 	private static String nodeLabel(Node n) {
-		if (n instanceof AnswerNode) {
-			AnswerNode a = (AnswerNode) n;
+		if (n instanceof UnexpandedNode) {
+			return "un";
+		} else if (n instanceof ConcreteAnswerNode) {
+			ConcreteAnswerNode a = (ConcreteAnswerNode) n;
 			return Integer.toString(a.getAnswer());
 		} else if (n instanceof QuestionNode){
 			QuestionNode q = (QuestionNode) n;
@@ -50,19 +53,17 @@ public class TreeTraverser {
 	private static String nodeString(Node root, Sequencer sequencer,
 			Map<Node, Integer> sequences) {
 		int seq = -1;
-		
 		if (sequences.containsKey(root)) {
 			seq = sequences.get(root);
 		} else {
 			seq = sequencer.next();
 			sequences.put(root, seq);
-		}
-	
+		}	
 		String rootS = root.toString();
 		if (rootS.equals("a-1")) {
 			rootS = "R";
 		}
-
-		return  rootS + "seq" + seq;
+	
+		return rootS + "seq" + seq;
 	}
 }

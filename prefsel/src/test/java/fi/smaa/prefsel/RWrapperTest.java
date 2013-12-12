@@ -25,7 +25,7 @@ public class RWrapperTest {
 		wrap.computeMetrics(0, 2);
 		assertEquals(0.33, wrap.getHVDF(), 0.02);
 		wrap.computeMetrics(1, 2);
-		assertEquals(0.46, wrap.getHVDF(), 0.02);
+		assertEquals(0.48, wrap.getHVDF(), 0.02);
 	}
 	
 }	
