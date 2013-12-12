@@ -73,18 +73,6 @@ public class RWrapper {
 		hDVF = hdvfArr[0];
 	}
 	
-	// package public to enable testing
-	public double[][] createMetricPairs(TransitiveAntisymmetricRelation preferences) {
-		int nrUnknowns = preferences.getNrBothDirectionsFalse();
-		RealMatrix pairs = new Array2DRowRealMatrix(nrUnknowns, 2);
-		int index = 0;
-		for (Pair p : preferences.negativeIterator()) {
-			pairs.setRow(index, new double[]{p.getFirst(), p.getSecond()});
-			index++;
-		}
-		return pairs.getData();
-	}
-
 	public double getHVDF() {
 		return hDVF;
 	}

@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public class ExhaustiveQuestionTreeSearchTest {
 	
-	
 	private AnswerNode root;
 
 	@Before
