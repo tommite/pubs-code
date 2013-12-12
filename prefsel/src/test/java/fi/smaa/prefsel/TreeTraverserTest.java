@@ -19,7 +19,7 @@ public class TreeTraverserTest {
 				{3, 1, 1}}
 		);
 		
-		root = ExhaustiveQuestionTreeSearch.buildTree(imp, new NullPreferenceModel());
+		root = QuestionTreeSearch.buildTree(imp, new NullPreferenceModel(), new ExpandAllChoiceStrategy());
 	}
 
 	@Test

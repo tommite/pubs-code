@@ -12,21 +12,22 @@ import fi.smaa.prefsel.PreferenceModel.PreferenceRelation;
  * @author tommi
  *
  */
-public class ExhaustiveQuestionTreeSearch {
+public class QuestionTreeSearch {
 	
-	public static AnswerNode buildTree(RealMatrix impactMatrix, PreferenceModel prefModel) {
+	public static AnswerNode buildTree(RealMatrix impactMatrix, PreferenceModel prefModel, ChoiceStrategy strategy) {
 		int nrAlts = impactMatrix.getRowDimension();
 		Question[] qs = QuestionGenerator.makeAllQuestions(nrAlts);
 		AnswerNode root = new AnswerNode(qs, nrAlts);
-		expandChildren(root, impactMatrix, prefModel);
+		expandChildren(root, impactMatrix, prefModel, strategy);
 		return root;
 	}
 
-	private static void expandChildren(AnswerNode node, RealMatrix impactMatrix, PreferenceModel prefModel) {
-		for (QuestionNode n : node.getChildren()) {
+	private static void expandChildren(AnswerNode node, RealMatrix impactMatrix, PreferenceModel prefModel, ChoiceStrategy strategy) {
+		QuestionNode[] toExpand = strategy.nodesToExpand(node.getChildren(), impactMatrix);
+		for (QuestionNode n : toExpand) {
 			expandAllAnswers(n, impactMatrix, prefModel);
 			for (AnswerNode an : n.getChildren()) {
-				expandChildren(an, impactMatrix, prefModel);
+				expandChildren(an, impactMatrix, prefModel, strategy);
 			}
 		}
 	}

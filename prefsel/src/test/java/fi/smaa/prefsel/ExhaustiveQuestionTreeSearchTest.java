@@ -19,7 +19,7 @@ public class ExhaustiveQuestionTreeSearchTest {
 				{3, 1, 1}}
 		);
 		
-		root = ExhaustiveQuestionTreeSearch.buildTree(imp, new NullPreferenceModel());
+		root = QuestionTreeSearch.buildTree(imp, new NullPreferenceModel(), new ExpandAllChoiceStrategy());
 	}
 
 	@Test
@@ -35,7 +35,7 @@ public class ExhaustiveQuestionTreeSearchTest {
 				{0.1, 0.8}
 		});
 		LinearVFPreferenceModel p = new LinearVFPreferenceModel();
-		root = ExhaustiveQuestionTreeSearch.buildTree(im, p);
+		root = QuestionTreeSearch.buildTree(im, p, new ExpandAllChoiceStrategy());
 		QuestionNode[] children = root.getChildren();
 		assertEquals(1, children[0].getChildren()[0].getChildren().length);
 		assertEquals(2, children[1].getChildren()[0].getChildren().length);
