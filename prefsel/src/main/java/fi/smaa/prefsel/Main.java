@@ -17,4 +17,8 @@ public class Main {
 		
 		System.out.println(TreeTraverser.toDOT(hdvfTree));
 	}
-}	
+	
+	public static void computationalTest(int nAlts, int nCrit) {
+		
+	}
+}

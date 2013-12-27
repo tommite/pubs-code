@@ -51,6 +51,5 @@ public class ConcreteAnswerNode implements AnswerNode {
 	@Override
 	public String toString() {
 		return "a" + Integer.toString(answer);
-	}
-	
+	}	
 }

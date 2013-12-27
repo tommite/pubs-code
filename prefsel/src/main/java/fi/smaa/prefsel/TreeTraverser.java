@@ -66,4 +66,42 @@ public class TreeTraverser {
 	
 		return rootS + "seq" + seq;
 	}
+
+	public static int getHeight(Node root) {
+		if (root == null) {
+			return 0;
+		}
+		int maxH = 0;
+		for (Node n : root.getChildren()) {
+			maxH = Math.max(maxH,  getHeight(n));
+		}
+		return maxH + 1;
+	}
+
+	public static int getMinNrQuestions(AnswerNode root) {
+		if (root.getChildren().length < 1) {
+			return 0;
+		}
+		int minQ = Integer.MAX_VALUE;
+		for (QuestionNode qn : root.getChildren()) {
+			for (AnswerNode an : qn.getChildren()) {
+				minQ = Math.min(minQ, getMinNrQuestions(an) + 1);
+			}
+		}
+		return minQ;
+	}
+
+	public static int getMaxNrQuestions(AnswerNode root) {
+		if (root.getChildren().length < 1) {
+			return 0;
+		}
+		int maxQ = Integer.MIN_VALUE;
+		for (QuestionNode qn : root.getChildren()) {
+			for (AnswerNode an : qn.getChildren()) {
+				maxQ = Math.max(maxQ, getMaxNrQuestions(an) + 1);
+			}
+		}
+		return maxQ;
+	}
+	
 }

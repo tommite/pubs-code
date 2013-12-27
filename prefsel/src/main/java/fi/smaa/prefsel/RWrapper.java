@@ -33,7 +33,8 @@ public class RWrapper {
 	private void initR(TransitiveAntisymmetricRelation preferences, RealMatrix im) {
 		caller = new RCaller();
 		code = new RCode();
-		caller.setRExecutable(R_EXECUTABLE);		
+		caller.setRExecutable(R_EXECUTABLE);
+		caller.setRscriptExecutable(R_EXECUTABLE + "script");		
 		constr = createConstraints(preferences, im);
 		try {
 			script = loadSource(SCRIPT_FILE);
@@ -66,6 +67,7 @@ public class RWrapper {
 
 		code.addRCode(script);
 		caller.setRCode(code);
+		//caller.runAndReturnResult("results");
 		caller.runAndReturnResultOnline("results");
 		double[] hdvfArr = caller.getParser().getAsDoubleArray("hDVF");
 		if (hdvfArr.length != 1) {

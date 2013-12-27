@@ -26,4 +26,19 @@ public class TreeTraverserTest {
 	public void testNrNodes() {
 		assertEquals(13 * 6 + 4, TreeTraverser.nrNodes(root)); // should be this amount due to transitivity..
 	}
+	
+	@Test
+	public void testHeight() {
+		assertEquals(7, TreeTraverser.getHeight(root));
+	}
+	
+	@Test
+	public void testMinNrQuestions() {
+		assertEquals(2, TreeTraverser.getMinNrQuestions(root));
+	}
+	
+	@Test
+	public void testMaxNrQuestions() {
+		assertEquals(3, TreeTraverser.getMaxNrQuestions(root));
+	}
 }
