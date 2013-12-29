@@ -9,7 +9,7 @@ public class HDVFChoiceStrategy implements ChoiceStrategy {
 			return children;
 		}
 		double[] hdvf = new double[children.length];
-		RWrapper w = new RWrapper(children[0].getRelation(), measurements);
+		RWrapper w = RWrapper.initInstance(children[0].getRelation(), measurements);
 		double max = Double.MIN_VALUE;
 		int idx = 0;
 		for (int i=0;i<children.length;i++) {

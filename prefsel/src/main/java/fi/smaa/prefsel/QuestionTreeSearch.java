@@ -40,8 +40,8 @@ public class QuestionTreeSearch {
 			throw new IllegalStateException("Question for a relation that is already set");
 		}
 		
-		TransitiveAntisymmetricRelation newRelationLeft = constructRelation(a1, a2, n.getRelation(), impactMatrix, prefModel);
-		TransitiveAntisymmetricRelation newRelationRight = constructRelation(a2, a1, n.getRelation(), impactMatrix, prefModel);
+		TransitiveAntisymmetricIrreflexiveRelation newRelationLeft = constructRelation(a1, a2, n.getRelation(), impactMatrix, prefModel);
+		TransitiveAntisymmetricIrreflexiveRelation newRelationRight = constructRelation(a2, a1, n.getRelation(), impactMatrix, prefModel);
 		
 		Question[] qsLeft = filterQuestions(n.getRemainingQuestions(), newRelationLeft);
 		Question[] qsRight = filterQuestions(n.getRemainingQuestions(), newRelationRight);
@@ -50,7 +50,7 @@ public class QuestionTreeSearch {
 		n.expandRight(qsRight, newRelationRight);
 	}
 
-	private static Question[] filterQuestions(Question[] qs, TransitiveAntisymmetricRelation rel) {
+	private static Question[] filterQuestions(Question[] qs, TransitiveAntisymmetricIrreflexiveRelation rel) {
 		ArrayList<Question> ql = new ArrayList<Question>();
 		for (Question q : qs) {
 			if (!rel.getRelation(q.getA1(), q.getA2()) && !rel.getRelation(q.getA2(), q.getA1())) {
@@ -70,11 +70,14 @@ public class QuestionTreeSearch {
 	 * @param prefModel the applied preference model
 	 * @return A new preference relation including (a1, a2) and possible other pairs inferred through the preference model 
 	 */
-	private static TransitiveAntisymmetricRelation constructRelation(int a1, int a2, TransitiveAntisymmetricRelation relation, RealMatrix impactMatrix, PreferenceModel prefModel) {
-		TransitiveAntisymmetricRelation newRel = relation.deepCopy();
+	private static TransitiveAntisymmetricIrreflexiveRelation constructRelation(int a1, int a2, TransitiveAntisymmetricIrreflexiveRelation relation, RealMatrix impactMatrix, PreferenceModel prefModel) {
+		TransitiveAntisymmetricIrreflexiveRelation newRel = relation.deepCopy();
 		
 		newRel.addRelation(a1, a2);
 		for (Pair p : newRel.negativeIterator()) {
+			if (p.getFirst() == p.getSecond()) {
+				continue;
+			}
 			if (newRel.getRelation(p.getFirst(), p.getSecond()) || newRel.getRelation(p.getSecond(), p.getFirst())) {
 				continue;
 			}

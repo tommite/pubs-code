@@ -1,9 +1,10 @@
 package fi.smaa.prefsel;
 
 
+
 public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 
-	private TransitiveAntisymmetricRelation prefs;
+	private TransitiveAntisymmetricIrreflexiveRelation prefs;
 	private Question[] remainingQuestions;
 	private AnswerNode leftChild;
 	private AnswerNode rightChild;
@@ -15,13 +16,14 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	 * @param question
 	 * @param remainingQuestions
 	 */
-	public QuestionNode(Question question, Question[] remainingQuestions, TransitiveAntisymmetricRelation prefs) {
+	public QuestionNode(Question question, Question[] remainingQuestions, TransitiveAntisymmetricIrreflexiveRelation prefs) {
 		this.question = question;
 		this.remainingQuestions = remainingQuestions;
 		this.prefs = prefs;
 		leftChild = new UnexpandedNode(question.getA1());
 		rightChild = new UnexpandedNode(question.getA2());
 	}
+	
 	
 	public Question getQuestion() {
 		return question;
@@ -74,7 +76,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	/**
 	 * PRECOND: getLeftChild() == null
 	 */
-	public void expandLeft(Question[] remainingQs, TransitiveAntisymmetricRelation newPrefs) {
+	public void expandLeft(Question[] remainingQs, TransitiveAntisymmetricIrreflexiveRelation newPrefs) {
 		if (!(getLeftChild() instanceof UnexpandedNode)) {
 			throw new IllegalStateException("PRECOND violation: getLeftChild() != null");
 		}
@@ -84,7 +86,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 	/**
 	 * PRECOND: getRightChild() == null
 	 */
-	public void expandRight(Question[] remainingQs, TransitiveAntisymmetricRelation newPrefs) {
+	public void expandRight(Question[] remainingQs, TransitiveAntisymmetricIrreflexiveRelation newPrefs) {
 		if (!(getRightChild() instanceof UnexpandedNode)) {
 			throw new IllegalStateException("PRECOND violation: getRightChild() != null");
 		}
@@ -101,7 +103,7 @@ public class QuestionNode implements Node<QuestionNode, AnswerNode> {
 		return "q" + getQuestion().getA1() + "or" + getQuestion().getA2();
 	}
 
-	public TransitiveAntisymmetricRelation getRelation() {
+	public TransitiveAntisymmetricIrreflexiveRelation getRelation() {
 		return prefs;
 	}
 }

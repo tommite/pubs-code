@@ -8,7 +8,7 @@ public class ConcreteAnswerNode implements AnswerNode {
 	private int answer;
 	private QuestionNode[] children;
 
-	public ConcreteAnswerNode(int answer, Question[] remainingQuestions, TransitiveAntisymmetricRelation prefs) {
+	public ConcreteAnswerNode(int answer, Question[] remainingQuestions, TransitiveAntisymmetricIrreflexiveRelation prefs) {
 		this.answer = answer;
 		createChildren(remainingQuestions, prefs);
 	}
@@ -19,11 +19,11 @@ public class ConcreteAnswerNode implements AnswerNode {
 	 * @param remainingQuestions
 	 */
 	public ConcreteAnswerNode(Question[] allQuestions, int nrAlts) {
-		this(NO_ANSWER, allQuestions, new TransitiveAntisymmetricRelation(nrAlts));
+		this(NO_ANSWER, allQuestions, new TransitiveAntisymmetricIrreflexiveRelation(nrAlts));
 	}
 
 	
-	private void createChildren(Question[] remainingQuestions, TransitiveAntisymmetricRelation prefs) {
+	private void createChildren(Question[] remainingQuestions, TransitiveAntisymmetricIrreflexiveRelation prefs) {
 		children = new QuestionNode[remainingQuestions.length];
 		for (int i=0;i<remainingQuestions.length;i++) {
 			children[i] = new QuestionNode(remainingQuestions[i], cloneArrayWithoutOne(remainingQuestions, i), prefs);

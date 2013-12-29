@@ -5,18 +5,13 @@ import java.util.Iterator;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 
-public class TransitiveAntisymmetricRelation {
+public class TransitiveAntisymmetricIrreflexiveRelation {
 
 	private static final double RELATION_TRUE = 1.0;
 	
 	private RealMatrix matrix;
 
-	/**
-	 * Constructs a relation which is not reflexive (R(a, a) = FALSE, forall a)
-	 *  
-	 * @param nrAlts
-	 */
-	public TransitiveAntisymmetricRelation(int nrAlts) {
+	public TransitiveAntisymmetricIrreflexiveRelation(int nrAlts) {
 		matrix = MatrixUtils.createRealMatrix(nrAlts, nrAlts);
 		for (int i=0;i<nrAlts;i++) {
 			matrix.setEntry(i, i, 0.0);
@@ -63,6 +58,12 @@ public class TransitiveAntisymmetricRelation {
 		if (getRelation(a1, a2)) {
 			throw new IllegalArgumentException("a1 > a2 already in the relation");
 		}
+		if (getRelation(a2, a1)) {
+			throw new IllegalArgumentException("a2 > a1 in relation, cannot add a1 > a2");
+		}
+		if (a1 == a2) {
+			throw new IllegalArgumentException("Relation irreflexive, cannot add a1 == a2");
+		}
 		matrix.setEntry(a1, a2, RELATION_TRUE);
 		addDominances(a1, a2);
 	}
@@ -85,8 +86,8 @@ public class TransitiveAntisymmetricRelation {
 		} while (adds);
 	}
 
-	public TransitiveAntisymmetricRelation deepCopy() {
-		TransitiveAntisymmetricRelation t = new TransitiveAntisymmetricRelation(matrix.getColumnDimension());
+	public TransitiveAntisymmetricIrreflexiveRelation deepCopy() {
+		TransitiveAntisymmetricIrreflexiveRelation t = new TransitiveAntisymmetricIrreflexiveRelation(matrix.getColumnDimension());
 		t.matrix = matrix.copy();
 		return t;
 	}
@@ -94,7 +95,7 @@ public class TransitiveAntisymmetricRelation {
 	public Iterable<Pair> iterator() {
 		return new Iterable<Pair>() {
 			public Iterator<Pair> iterator() {
-				return new PreferenceIterator(true);
+				return new RelationIterator(true);
 			}
 		};
 	}
@@ -102,26 +103,18 @@ public class TransitiveAntisymmetricRelation {
 	public Iterable<Pair> negativeIterator() {
 		return new Iterable<Pair>() {
 			public Iterator<Pair> iterator() {
-				return new PreferenceIterator(false);
+				return new RelationIterator(false);
 			}
 		};
 	}
-	
-	public int getNrBothDirectionsFalse() {
-		int c = 0;
-		for (@SuppressWarnings("unused") Pair p : negativeIterator()) {
-			c++;
-		}
-		return c;
-	}
-	
-	private class PreferenceIterator implements Iterator<Pair> {
+		
+	private class RelationIterator implements Iterator<Pair> {
 		
 		private int i=0;
 		private int j=-1;
 		private boolean ones;
 		
-		public PreferenceIterator(boolean ones) {
+		public RelationIterator(boolean ones) {
 			this.ones = ones;
 			findNext();
 		}
@@ -130,17 +123,12 @@ public class TransitiveAntisymmetricRelation {
 			j++;
 			for (;i<matrix.getRowDimension();i++) {
 				for (;j<matrix.getColumnDimension();j++) {
-					if (i == j) {
-						continue;
-					}
 					if (ones) {
-						if (getRelation(i, j) && !getRelation(j, i)) {
+						if (getRelation(i, j)) {
 							return;
 						}
 					} else {
-						if (j < i) {
-							continue;
-						} else if (!getRelation(i, j) && !getRelation(j, i)) {
+						if (!getRelation(i, j)) {
 							return;
 						}
 					}

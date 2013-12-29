@@ -10,7 +10,7 @@ import org.apache.commons.math3.linear.RealMatrix;
  */
 public class NullPreferenceModel implements PreferenceModel {
 
-	public PreferenceRelation compare(TransitiveAntisymmetricRelation rel, RealMatrix impactMatrix, double[] a1, double[] a2) {
+	public PreferenceRelation compare(TransitiveAntisymmetricIrreflexiveRelation rel, RealMatrix impactMatrix, double[] a1, double[] a2) {
 		return PreferenceModel.PreferenceRelation.INCOMPARABLE;
 	}
 

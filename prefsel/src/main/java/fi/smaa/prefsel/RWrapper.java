@@ -9,6 +9,7 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
+import cern.colt.Arrays;
 import rcaller.RCaller;
 import rcaller.RCode;
 
@@ -24,27 +25,38 @@ public class RWrapper {
 	private double[][] constr;
 	private RealMatrix measurements;
 	private String script;
+	private TransitiveAntisymmetricIrreflexiveRelation preferences;
 	
-	public RWrapper(TransitiveAntisymmetricRelation preferences, RealMatrix measurements) {
-		this.measurements = measurements;
-		initR(preferences, measurements);
-	}
+	private static RWrapper instance;
 	
-	private void initR(TransitiveAntisymmetricRelation preferences, RealMatrix im) {
+	private RWrapper() { 
 		caller = new RCaller();
 		code = new RCode();
 		caller.setRExecutable(R_EXECUTABLE);
-		caller.setRscriptExecutable(R_EXECUTABLE + "script");		
-		constr = createConstraints(preferences, im);
 		try {
 			script = loadSource(SCRIPT_FILE);
 		} catch (IOException e) {
 			throw new IllegalStateException("error loading file: " + e.getMessage());
 		} catch (URISyntaxException e) {
 			throw new IllegalStateException("error in URI syntax - this should not happen!");
-		}		
+		}
 	}
-
+		
+	/**
+	 * Singleton.
+	 * 
+	 * @return
+	 */
+	public static RWrapper initInstance(TransitiveAntisymmetricIrreflexiveRelation preferences, RealMatrix im) {
+		if (instance == null) {
+			instance = new RWrapper();
+		}
+		instance.measurements = im;
+		instance.preferences = preferences;
+		instance.constr = createConstraints(preferences, im);		
+		return instance;
+	}
+	
 	private String loadSource(String sourceFile) throws URISyntaxException, IOException {
 		File src = new File( this.getClass().getResource(sourceFile).toURI() );
 		return FileUtils.readFileToString(src);
@@ -58,7 +70,11 @@ public class RWrapper {
 	 * @throws URISyntaxException 
 	 */
 	public void computeMetrics(int a1, int a2) {
+		if (measurements == null) {
+			throw new IllegalStateException("measurements not set yet");
+		}
 		caller.cleanRCode();
+		code.clear();
 		if (constr != null) {
 			code.addDoubleMatrix("constraints", constr);
 		}
@@ -67,7 +83,7 @@ public class RWrapper {
 
 		code.addRCode(script);
 		caller.setRCode(code);
-		//caller.runAndReturnResult("results");
+		System.out.println(code.toString());
 		caller.runAndReturnResultOnline("results");
 		double[] hdvfArr = caller.getParser().getAsDoubleArray("hDVF");
 		if (hdvfArr.length != 1) {
@@ -80,9 +96,8 @@ public class RWrapper {
 		return hDVF;
 	}
 
-	// package public to enable testing
-	private double[][] createConstraints(TransitiveAntisymmetricRelation preferences, RealMatrix im) {
-		int nrConstrs = preferences.getTrueCount() - im.getRowDimension();
+	private static double[][] createConstraints(TransitiveAntisymmetricIrreflexiveRelation preferences, RealMatrix im) {
+		int nrConstrs = preferences.getTrueCount();
 		if (nrConstrs > 0) {
 			RealMatrix constr = new Array2DRowRealMatrix(nrConstrs, im.getColumnDimension());
 		
@@ -93,9 +108,16 @@ public class RWrapper {
 					for (int i=0;i<diff.getDimension();i++) {
 						diff.addToEntry(i, EPS);
 					}
+					if (row >= nrConstrs) {
+						throw new IllegalStateException("Too large row, " + 
+								preferences.getTrueCount() + " " + im.getRowDimension());
+					}
 					constr.setRowVector(row, diff);
 					row++;
 				}
+			}
+			if (row != nrConstrs) {
+				throw new IllegalStateException("row 1= nrConstrs");
 			}
 			return constr.getData();
 		} else {

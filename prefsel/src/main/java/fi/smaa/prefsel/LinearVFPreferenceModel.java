@@ -17,7 +17,7 @@ public class LinearVFPreferenceModel implements PreferenceModel {
 	private static final Double EPS = 1E-6;
 	private static final double SLACK_BOUND = 1.0;
 
-	public PreferenceRelation compare(TransitiveAntisymmetricRelation prefs, RealMatrix impactMatrix, double[] a1, double[] a2) {
+	public PreferenceRelation compare(TransitiveAntisymmetricIrreflexiveRelation prefs, RealMatrix impactMatrix, double[] a1, double[] a2) {
 		if (a1.length != a2.length) {
 			throw new IllegalArgumentException("PRECOND violation");
 		}

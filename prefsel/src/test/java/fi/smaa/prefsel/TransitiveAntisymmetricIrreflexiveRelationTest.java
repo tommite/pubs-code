@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TransitiveAntisymmetricRelationTest {
+public class TransitiveAntisymmetricIrreflexiveRelationTest {
 	
-	private TransitiveAntisymmetricRelation rel;
+	private TransitiveAntisymmetricIrreflexiveRelation rel;
 
 	@Before
 	public void setUp() {
-		rel = new TransitiveAntisymmetricRelation(3);
+		rel = new TransitiveAntisymmetricIrreflexiveRelation(3);
 	}
 	
 	@Test
@@ -55,9 +55,10 @@ public class TransitiveAntisymmetricRelationTest {
 	}
 	
 	@Test
-	public void testGetNrBothDirectionsFalse() {
-		assertEquals(3, rel.getNrBothDirectionsFalse());
+	public void testNegativeIteratorCount() {
+		int c = 0;
+		for (@SuppressWarnings("unused") Pair p : rel.negativeIterator()) { c++; }
+		assertEquals(9, c);
 	}
-
 
 }

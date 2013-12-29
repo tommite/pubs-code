@@ -22,9 +22,10 @@ public class HDVFQuestionTreeSearchTest {
 	}
 	
 	@Test
-	public void testMaxOneNodeExpandedAtRoot() {
+	public void testOneNodeExpandedAtRoot() {
 		QuestionNode[] ch = root.getChildren();
 		int nrAnswersExpanded = 0;
+		assertEquals(3, ch.length);
 		for (QuestionNode qn : ch) {
 			if (!(qn.getLeftChild() instanceof UnexpandedNode)) {
 				nrAnswersExpanded++;
