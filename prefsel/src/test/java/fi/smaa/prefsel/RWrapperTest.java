@@ -17,7 +17,7 @@ public class RWrapperTest {
 	public void setUp() {
 		rel = new TransitiveAntisymmetricIrreflexiveRelation(3);
 		im = new Array2DRowRealMatrix(new double[][]{ {0.9, 0.0}, {0.0, 0.9}, {0.8, 0.2}});
-		wrap = RWrapper.initInstance(rel, im);
+		wrap = new RWrapper(rel, im);
 	}
 	
 	@Test
@@ -34,7 +34,7 @@ public class RWrapperTest {
 		rel = new TransitiveAntisymmetricIrreflexiveRelation(3);
 		rel.addRelation(1, 0);
 		rel.addRelation(1, 2);
-		wrap = RWrapper.initInstance(rel, im);
+		wrap = new RWrapper(rel, im);
 		wrap.computeMetrics(0, 2);
 	}
 	

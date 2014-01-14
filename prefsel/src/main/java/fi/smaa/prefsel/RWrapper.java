@@ -9,7 +9,6 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
-import cern.colt.Arrays;
 import rcaller.RCaller;
 import rcaller.RCode;
 
@@ -22,14 +21,12 @@ public class RWrapper {
 	private double hDVF;
 	private RCaller caller;
 	private RCode code;
-	private double[][] constr;
 	private RealMatrix measurements;
 	private String script;
-	private TransitiveAntisymmetricIrreflexiveRelation preferences;
+	private double[][] constr;
 	
-	private static RWrapper instance;
-	
-	private RWrapper() { 
+	public RWrapper(TransitiveAntisymmetricIrreflexiveRelation preferences, RealMatrix im) {
+		this.measurements = im;
 		caller = new RCaller();
 		code = new RCode();
 		caller.setRExecutable(R_EXECUTABLE);
@@ -40,23 +37,10 @@ public class RWrapper {
 		} catch (URISyntaxException e) {
 			throw new IllegalStateException("error in URI syntax - this should not happen!");
 		}
+		this.constr = createConstraints(preferences, im);
+
 	}
-		
-	/**
-	 * Singleton.
-	 * 
-	 * @return
-	 */
-	public static RWrapper initInstance(TransitiveAntisymmetricIrreflexiveRelation preferences, RealMatrix im) {
-		if (instance == null) {
-			instance = new RWrapper();
-		}
-		instance.measurements = im;
-		instance.preferences = preferences;
-		instance.constr = createConstraints(preferences, im);		
-		return instance;
-	}
-	
+			
 	private String loadSource(String sourceFile) throws URISyntaxException, IOException {
 		File src = new File( this.getClass().getResource(sourceFile).toURI() );
 		return FileUtils.readFileToString(src);
@@ -70,9 +54,6 @@ public class RWrapper {
 	 * @throws URISyntaxException 
 	 */
 	public void computeMetrics(int a1, int a2) {
-		if (measurements == null) {
-			throw new IllegalStateException("measurements not set yet");
-		}
 		caller.cleanRCode();
 		code.clear();
 		if (constr != null) {
@@ -80,10 +61,8 @@ public class RWrapper {
 		}
 		code.addDoubleMatrix("performances", measurements.getData());
 		code.addIntArray("pair", new int[] {a1+1, a2+1});
-
 		code.addRCode(script);
 		caller.setRCode(code);
-		System.out.println(code.toString());
 		caller.runAndReturnResultOnline("results");
 		double[] hdvfArr = caller.getParser().getAsDoubleArray("hDVF");
 		if (hdvfArr.length != 1) {
