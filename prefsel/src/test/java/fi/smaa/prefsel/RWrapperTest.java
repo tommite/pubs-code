@@ -16,16 +16,15 @@ public class RWrapperTest {
 	@Before
 	public void setUp() {
 		rel = new TransitiveAntisymmetricIrreflexiveRelation(3);
-		im = new Array2DRowRealMatrix(new double[][]{ {0.9, 0.0}, {0.0, 0.9}, {0.8, 0.2}});
-		wrap = new RWrapper(rel, im);
+		im = new Array2DRowRealMatrix(new double[][]{ {1.0, 0.0}, {0.0, 1.0}, {0.75, 0.75}});
+		rel.addRelation(0, 1);
+		wrap = new RWrapper(rel, im, true);
 	}
 	
 	@Test
 	public void testComputeMetrics() {
 		wrap.computeMetrics(0, 2);
-		assertEquals(0.33, wrap.getHVDF(), 0.02);
-		wrap.computeMetrics(1, 2);
-		assertEquals(0.48, wrap.getHVDF(), 0.03); // TODO: these are not manually computed numbers, so should re-check the test
+		assertEquals(0.5, wrap.getHVDF(), 0.01);
 	}
 	
 	@Test

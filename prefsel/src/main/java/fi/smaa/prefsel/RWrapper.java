@@ -24,6 +24,7 @@ public class RWrapper {
 	private RealMatrix measurements;
 	private String script;
 	private double[][] constr;
+	private boolean console = false;
 	
 	public RWrapper(TransitiveAntisymmetricIrreflexiveRelation preferences, RealMatrix im) {
 		this.measurements = im;
@@ -38,14 +39,18 @@ public class RWrapper {
 			throw new IllegalStateException("error in URI syntax - this should not happen!");
 		}
 		this.constr = createConstraints(preferences, im);
-
+	}
+	
+	public RWrapper(TransitiveAntisymmetricIrreflexiveRelation preferences, RealMatrix im, boolean console) {
+		this(preferences, im);
+		this.console = console;
 	}
 			
 	private String loadSource(String sourceFile) throws URISyntaxException, IOException {
 		File src = new File( this.getClass().getResource(sourceFile).toURI() );
 		return FileUtils.readFileToString(src);
 	}
-
+	
 	/**
 	 * 
 	 * @param preferences
@@ -62,6 +67,9 @@ public class RWrapper {
 		code.addDoubleMatrix("performances", measurements.getData());
 		code.addIntArray("pair", new int[] {a1+1, a2+1});
 		code.addRCode(script);
+		if (console) {
+			caller.redirectROutputToConsole();
+		}
 		caller.setRCode(code);
 		caller.runAndReturnResultOnline("results");
 		double[] hdvfArr = caller.getParser().getAsDoubleArray("hDVF");
