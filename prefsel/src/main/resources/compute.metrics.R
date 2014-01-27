@@ -31,6 +31,19 @@ compute.dvf <- function(a1, a2) {
   min(ra[,1])
 }
 
+a1.over.a2 <- performances[pair[2],] - performances[pair[1],]
+a2.over.a1 <- -a1.over.a2
+
+a1.chosen.constr <- mergeConstraints(list(constr=a1.over.a2, dir='<=', rhs=0),
+                                     all.constr)
+a2.chosen.constr <- mergeConstraints(list(constr=a2.over.a1, dir='<=', rhs=0),
+                                     all.constr)
+a1.chosen.chain <- hitandrun(a1.chosen.constr, n.samples=n.samples)
+a2.chosen.chain <- hitandrun(a2.chosen.constr, n.samples=n.samples)
+
+compute.win <- function() {
+}
+
 a1 <- performances[pair[1],]
 a2 <- performances[pair[2],]
 

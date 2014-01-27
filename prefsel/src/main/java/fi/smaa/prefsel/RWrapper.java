@@ -111,4 +111,29 @@ public class RWrapper {
 			return null;
 		}
 	}
+
+	public int getWin() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getEra() {
+		// TODO Auto-generated method stub
+		return 0.0;
+	}
+
+	public int getApn() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getWpe() {
+		// TODO Auto-generated method stub
+		return 0.0;
+	}
+
+	public double getWre() {
+		// TODO Auto-generated method stub
+		return 0.0;
+	}
 }
