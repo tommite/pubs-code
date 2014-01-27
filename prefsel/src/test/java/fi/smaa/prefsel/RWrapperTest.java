@@ -24,7 +24,7 @@ public class RWrapperTest {
 	@Test
 	public void testComputeMetrics() {
 		wrap.computeMetrics(0, 2);
-		assertEquals(0.5, wrap.getHVDF(), 0.01);
+		assertEquals(0.5, wrap.getDvf(), 0.01);
 	}
 	
 	@Test

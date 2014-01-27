@@ -15,7 +15,7 @@ public class HDVFChoiceStrategy implements ChoiceStrategy {
 		for (int i=0;i<children.length;i++) {
 			Question q = children[i].getQuestion();
 			w.computeMetrics(q.getA1(), q.getA2());
-			hdvf[i] = w.getHVDF();
+			hdvf[i] = w.getDvf();
 			if (hdvf[i] > max) {
 				idx = i;
 				max = hdvf[i];

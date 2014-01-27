@@ -18,7 +18,7 @@ public class RWrapper {
 	private static final double EPS = 1E-10;
 	public static String SCRIPT_FILE = "/compute.metrics.R";
 	
-	private double hDVF;
+	private double dvf;
 	private RCaller caller;
 	private RCode code;
 	private RealMatrix measurements;
@@ -72,15 +72,15 @@ public class RWrapper {
 		}
 		caller.setRCode(code);
 		caller.runAndReturnResultOnline("results");
-		double[] hdvfArr = caller.getParser().getAsDoubleArray("hDVF");
-		if (hdvfArr.length != 1) {
+		double[] dvfArr = caller.getParser().getAsDoubleArray("dvf");
+		if (dvfArr.length != 1) {
 			throw new IllegalStateException("R script return array not length 1");
 		}
-		hDVF = hdvfArr[0];
+		dvf = dvfArr[0];
 	}
 	
-	public double getHVDF() {
-		return hDVF;
+	public double getDvf() {
+		return dvf;
 	}
 
 	private static double[][] createConstraints(TransitiveAntisymmetricIrreflexiveRelation preferences, RealMatrix im) {

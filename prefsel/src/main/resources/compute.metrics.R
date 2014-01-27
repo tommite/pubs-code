@@ -19,7 +19,7 @@ user.constr <- list(constr=constraints, dir=rep('<=', nrow(constraints)), rhs=re
 all.constr <- mergeConstraints(simplexConstraints(ncol(constraints)), user.constr)
 chain <- hitandrun(all.constr, n.samples=n.samples)
 
-compute.hDVF <- function(a1, a2) {
+compute.dvf <- function(a1, a2) {
   singlemeas <- rbind(a1, a2)
   meas <- array(0, dim=c(n.samples, 2, length(a1)))
   for (i in 1:n.samples) {
@@ -36,4 +36,4 @@ a2 <- performances[pair[2],]
 
 ## Return value has to be list called result, of which each element
 ## is a single metric (vector for the 'pairs')
-results <- list(hDVF=compute.hDVF(a1, a2))
+results <- list(dvf=compute.dvf(a1, a2))
