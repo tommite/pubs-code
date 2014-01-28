@@ -31,6 +31,12 @@ compute.dvf <- function(a1, a2) {
   min(ra[,1])
 }
 
+all.perfs <- array(0, dim=c(n.samples, nrow(performances), ncol(performances)))
+dimnames(all.perfs) <- list(NULL, c('a1', 'a2', 'a3'), c('c1', 'c2'))
+for (i in 1:n.samples) {
+    all.perfs[i,,] <- performances
+}
+
 a1.over.a2 <- performances[pair[2],] - performances[pair[1],]
 a2.over.a1 <- -a1.over.a2
 
@@ -41,7 +47,35 @@ a2.chosen.constr <- mergeConstraints(list(constr=a2.over.a1, dir='<=', rhs=0),
 a1.chosen.chain <- hitandrun(a1.chosen.constr, n.samples=n.samples)
 a2.chosen.chain <- hitandrun(a2.chosen.constr, n.samples=n.samples)
 
+pwi.all <- smaa.pwi(smaa.ranks(smaa.values(all.perfs, chain)))
+pwi.a1.chosen <- smaa.pwi(smaa.ranks(smaa.values(all.perfs, a1.chosen.chain)))
+pwi.a2.chosen <- smaa.pwi(smaa.ranks(smaa.values(all.perfs, a2.chosen.chain)))
+
+nr.necessary <- function(pwi) {
+    sum(pwi == 1)
+}
+
+necessary <- function(pwi) {
+    pwi == 1
+}
+
+possible <- function(pwi) {
+    pwi > 0
+}
+
 compute.win <- function() {
+    nr.all <- nr.necessary(pwi.all)
+    min(nr.necessary(pwi.a1.chosen) - nr.all, nr.necessary(pwi.a2.chosen) - nr.all)
+}
+
+compute.apn <- function() {
+    apn.all <- sum(possible(pwi.all) - necessary(pwi.all))
+    max(apn.all - sum((possible(pwi.a1.chosen) - necessary(pwi.a1.chosen))),
+        apn.all - sum((possible(pwi.a2.chosen) - necessary(pwi.a2.chosen))))
+}
+
+compute.era <- function() {
+    0
 }
 
 a1 <- performances[pair[1],]
@@ -49,4 +83,5 @@ a2 <- performances[pair[2],]
 
 ## Return value has to be list called result, of which each element
 ## is a single metric (vector for the 'pairs')
-results <- list(dvf=compute.dvf(a1, a2))
+results <- list(dvf=compute.dvf(a1, a2), win=compute.win(),
+                apn=compute.apn(), era=compute.era())
