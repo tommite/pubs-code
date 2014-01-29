@@ -48,8 +48,12 @@ a1.chosen.chain <- hitandrun(a1.chosen.constr, n.samples=n.samples)
 a2.chosen.chain <- hitandrun(a2.chosen.constr, n.samples=n.samples)
 
 pwi.all <- smaa.pwi(smaa.ranks(smaa.values(all.perfs, chain)))
-pwi.a1.chosen <- smaa.pwi(smaa.ranks(smaa.values(all.perfs, a1.chosen.chain)))
-pwi.a2.chosen <- smaa.pwi(smaa.ranks(smaa.values(all.perfs, a2.chosen.chain)))
+a1.chosen.ranks <- smaa.ranks(smaa.values(all.perfs, a1.chosen.chain))
+a2.chosen.ranks <- smaa.ranks(smaa.values(all.perfs, a2.chosen.chain))
+pwi.a1.chosen <- smaa.pwi(a1.chosen.ranks)
+pwi.a2.chosen <- smaa.pwi(a2.chosen.ranks)
+ra.a1.chosen <- smaa.ra(a1.chosen.ranks)
+ra.a2.chosen <- smaa.ra(a2.chosen.ranks)
 
 nr.necessary <- function(pwi) {
     sum(pwi == 1)

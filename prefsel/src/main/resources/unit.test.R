@@ -1,4 +1,4 @@
-EPS <- 0.01 # allowed error
+EPS <- 0.02 # allowed error
 
 a <- c(1, 0)
 b <- c(0, 1)
