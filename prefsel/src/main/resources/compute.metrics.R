@@ -47,13 +47,15 @@ a2.chosen.constr <- mergeConstraints(list(constr=a2.over.a1, dir='<=', rhs=0),
 a1.chosen.chain <- hitandrun(a1.chosen.constr, n.samples=n.samples)
 a2.chosen.chain <- hitandrun(a2.chosen.constr, n.samples=n.samples)
 
-pwi.all <- smaa.pwi(smaa.ranks(smaa.values(all.perfs, chain)))
+all.ranks <- smaa.ranks(smaa.values(all.perfs, chain))
+pwi.all <- smaa.pwi(all.ranks)
 a1.chosen.ranks <- smaa.ranks(smaa.values(all.perfs, a1.chosen.chain))
 a2.chosen.ranks <- smaa.ranks(smaa.values(all.perfs, a2.chosen.chain))
 pwi.a1.chosen <- smaa.pwi(a1.chosen.ranks)
 pwi.a2.chosen <- smaa.pwi(a2.chosen.ranks)
 ra.a1.chosen <- smaa.ra(a1.chosen.ranks)
 ra.a2.chosen <- smaa.ra(a2.chosen.ranks)
+ra.all <- smaa.ra(all.ranks)
 
 nr.necessary <- function(pwi) {
     sum(pwi == 1)
@@ -78,7 +80,21 @@ compute.apn <- function() {
         apn.all - sum((possible(pwi.a2.chosen) - necessary(pwi.a2.chosen))))
 }
 
+avg.era <- function(ra) {
+    widths <- apply(ra, 1, function(x) {max(which(x>0)) - min(which(x>0))})
+    mean(widths)
+}
+
 compute.era <- function() {
+    era.all <- avg.era(ra.all)
+    min(era.all - avg.era(ra.a1.chosen), era.all - avg.era(ra.a2.chosen))
+}
+
+compute.wpe <- function() {
+    0
+}
+
+compute.wre <- function() {
     0
 }
 
@@ -88,4 +104,5 @@ a2 <- performances[pair[2],]
 ## Return value has to be list called result, of which each element
 ## is a single metric (vector for the 'pairs')
 results <- list(dvf=compute.dvf(a1, a2), win=compute.win(),
-                apn=compute.apn(), era=compute.era())
+                apn=compute.apn(), era=compute.era(),
+                wpe=compute.wpe(), wre=compute.wre())
