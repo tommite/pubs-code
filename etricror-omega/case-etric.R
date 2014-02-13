@@ -114,8 +114,8 @@ make.test <- function(revised) {
             xlab='Iteration', ylab='', ylim=c(0.0, 0.8), yaxt="n")
     axis(side=1, at=c(1, 2, 3), label=c("1", "2", "3"))
     axis(side=2, at=seq(0.0, 0.8, 0.1))
-    cnames <- c(expression('g'[1]), expression('g'[2]), expression('g'[3]),
-                expression('g'[4]), expression('g'[5]), expression(lambda))
+    cnames <- c(expression('w'[1]), expression('w'[2]), expression('w'[3]),
+                expression('w'[4]), expression('w'[5]), expression(lambda))
     legend(x=2.7, y=0.65, lty=1:6, cnames)
     dev.off()
 }
