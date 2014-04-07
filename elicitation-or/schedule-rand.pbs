@@ -1,0 +1,2 @@
+#PBS -lnodes=1:ppn=12 -lwalltime=30:00:00 -t 1-320
+python executeParallelRand.py $PBS_ARRAYID
